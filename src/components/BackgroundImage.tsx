@@ -1,30 +1,17 @@
-"use client";
-
-import Image from "next/image";
-
-import hillsDarkImage from "@/public/bg/hills-dark.png";
-import hillsLightImage from "@/public/bg/hills-light.png";
-
 export function BackgroundImage() {
   return (
     <>
-      <Image
-        src={hillsLightImage}
+      <img
+        src="/bg/hills-light.png"
         alt=""
-        fill
-        placeholder="blur"
-        className="object-cover object-bottom dark:hidden"
-        sizes="100vw"
-        priority
+        className="absolute inset-0 h-full w-full object-cover object-bottom dark:hidden"
+        fetchPriority="high"
       />
-      <Image
-        src={hillsDarkImage}
+      <img
+        src="/bg/hills-dark.png"
         alt=""
-        fill
-        placeholder="blur"
-        className="hidden object-cover object-bottom dark:block"
-        sizes="100vw"
-        priority
+        className="absolute inset-0 hidden h-full w-full object-cover object-bottom dark:block"
+        fetchPriority="high"
       />
     </>
   );

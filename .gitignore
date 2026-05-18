@@ -94,3 +94,9 @@ Thumbs.db
 .cursor/
 
 changelog_prompt.txt
+
+# TanStack Start
+routeTree.gen.ts
+src/routeTree.gen.ts
+.nitro
+.tanstack
