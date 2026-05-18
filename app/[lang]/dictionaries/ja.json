@@ -1,0 +1,193 @@
+{
+  "landing": {
+    "title": "ミーティング予約を、もっとスムーズに。",
+    "subtitle": "リンクを共有。ゲストが時間を選択。予約完了。",
+    "cta": "無料で始める",
+    "features": {
+      "tag": "シンプルなデザイン",
+      "title": "必要な機能だけを、直感的に。",
+      "link": {
+        "title": "たった一つのリンク",
+        "description": "どこでも共有可能。"
+      },
+      "global": {
+        "title": "世界中の時間に対応",
+        "description": "タイムゾーンを自動変換。"
+      },
+      "automated": {
+        "title": "自動化",
+        "description": "招待とリマインダーを自動送信。"
+      }
+    }
+  },
+  "user_page": {
+    "welcome": "予約ページへようこそ。イベントタイプを選択して開始してください。",
+    "not_found": "ユーザーが見つかりません",
+    "not_found_desc": "ユーザー名が正しいか再度ご確認ください。「{username}」というユーザーは存在しないか、削除された可能性があります。",
+    "no_events": "{name}さんはまだイベントを作成していません。",
+    "book_now": "今すぐ予約"
+  },
+  "success": {
+    "title": "予約が完了しました！ 🎉",
+    "title_cancelled": "予約がキャンセルされました",
+    "title_rescheduled": "日程変更が完了しました！ 🎉",
+    "subtitle": "確認メールを送信しました",
+    "subtitle_cancelled": "予約はキャンセルされました",
+    "subtitle_rescheduled": "予約内容が更新されました",
+    "copy": "ミーティング詳細をコピー",
+    "copied": "コピーしました！",
+    "scheduled_with": "book.meeting.ai を通じて {hostName} さんと予約済み",
+    "scheduled_via": "book.meeting.ai を通じて予約済み"
+  },
+  "booking_form": {
+    "details": "詳細の入力",
+    "name": "お名前",
+    "email": "メールアドレス",
+    "phone": "電話番号",
+    "optional": "（任意）",
+    "notes_label": "ミーティングの準備に役立つ情報があれば共有してください。",
+    "schedule_event": "予約を確定する",
+    "scheduling": "予約を処理中...",
+    "checking": "空き状況を確認中...",
+    "slot_not_available": "選択した時間は予約できません",
+    "slot_not_available_desc": "この時間帯はすでに予約されています。他の時間を選択してください...",
+    "back": "カレンダーに戻る",
+    "missing_time": "予約時間が指定されていません",
+    "toast_slot_unavailable": "この時間帯は予約できません",
+    "toast_redirecting": "この時間帯は予約できません。他の時間を選択してください。",
+    "toast_confirm_fail": "空き状況を確認できませんでした",
+    "toast_no_longer_available": "この時間帯はすでに予約されています",
+    "toast_success": "イベントの予約が完了しました",
+    "toast_fail": "イベントの予約に失敗しました",
+    "guest": "ゲスト",
+    "duration": "{min} 分",
+    "duration_hours": "{hr} 時間",
+    "duration_hours_minutes": "{hr} 時間 {min} 分"
+  },
+  "slot_picker": {
+    "host_tz_prefix": "ホストのタイムゾーンで表示：",
+    "viewer_tz_prefix": "あなたのタイムゾーンで表示：",
+    "show_your_tz": "自分のタイムゾーンを表示 ({tz})",
+    "show_host_tz": "ホストのタイムゾーンを表示 ({tz})",
+    "switch_to_your_tz": "自分のタイムゾーンに切り替え",
+    "switch_to_host_tz": "ホストのタイムゾーンに切り替え",
+    "select_date_see_times": "日付を選択して空き時間を確認してください",
+    "select_date_check_times": "日付を選択して予約可能な時間を確認してください",
+    "select_time": "時間を選択",
+    "already_booked": "予約済み",
+    "not_available": "予約不可",
+    "loading_slots": "空き状況を読み込み中...",
+    "book_button": "予約する",
+    "am": "午前",
+    "pm": "午後"
+  },
+  "calendar": {
+    "days": ["日", "月", "火", "水", "木", "金", "土"],
+    "full_days": [
+      "日曜日",
+      "月曜日",
+      "火曜日",
+      "水曜日",
+      "木曜日",
+      "金曜日",
+      "土曜日"
+    ],
+    "unavailable": "予約不可",
+    "fully_booked": "予約満了",
+    "next_month": "翌月",
+    "prev_month": "前月"
+  },
+  "timezone_selector": {
+    "search_placeholder": "タイムゾーン、都市、またはUTCオフセットを検索...",
+    "no_results": "タイムゾーンが見つかりませんでした。",
+    "trigger_placeholder": "タイムゾーンを選択",
+    "title": "タイムゾーンを選択"
+  },
+  "reschedule": {
+    "title": "日程変更: {title}",
+    "details_title": "日程変更の詳細",
+    "current_time_label": "現在の予約時間",
+    "select_new_time_title": "新しい時間を選択",
+    "select_new_time_subtitle": "ミーティングの新しい日付と時間を選択してください",
+    "reason_label": "日程変更の理由",
+    "reason_placeholder": "予定が入ってしまったため...",
+    "additional_notes_label": "追加メモ",
+    "notes_placeholder": "ミーティングの準備に役立つ情報があれば共有してください。",
+    "submit_button": "日程変更を確定する",
+    "submitting_button": "日程変更を処理中...",
+    "toast_loading": "予約を変更中...",
+    "toast_success": "予約の日程変更が完了しました",
+    "toast_error": "予約の日程変更に失敗しました",
+    "already_cancelled": "この予約はすでにキャンセルされています",
+    "already_cancelled_desc": "この予約はすでにキャンセルされているため、変更できません。",
+    "cannot_reschedule_past": "このイベントの日程変更はできません",
+    "cannot_reschedule_past_desc": "このイベントはすでに開始されているか、終了しています。今後のイベントのみ日程変更が可能です。"
+  },
+  "cancel": {
+    "already_cancelled": "この予約はすでにキャンセルされています",
+    "already_cancelled_desc": "この予約はすでにキャンセルされているため、変更できません。",
+    "cannot_cancel_past": "このイベントのキャンセルはできません",
+    "cannot_cancel_past_desc": "このイベントはすでに開始されているか、終了しています。今後のイベントのみキャンセルが可能です。",
+    "reason_label": "キャンセルの理由",
+    "reason_placeholder": "キャンセルされる理由を教えてください...",
+    "reason_required": "キャンセルの理由を入力してください",
+    "submit_button": "予約をキャンセルする",
+    "submitting_button": "キャンセルを処理中...",
+    "toast_loading": "予約をキャンセル中...",
+    "toast_success": "予約をキャンセルしました",
+    "toast_error": "予約のキャンセルに失敗しました"
+  },
+  "hero": {
+    "intro_title": "イントロチャット",
+    "intro_duration": "30 分",
+    "intro_type": "ビデオ通話",
+    "intro_description": "目標と次のステップをすり合わせるための短いミーティングです。",
+    "host_name": "James Smith",
+    "times_shown_in": "表示時間：",
+    "available_times": "予約可能な時間",
+    "book_button": "予約する",
+    "am": "午前",
+    "pm": "午後",
+    "mini_days": ["日", "月", "火", "水", "木", "金", "土"],
+    "months": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ]
+  },
+  "metadata": {
+    "default_title": "ミーティング予約 — 今すぐスケジュール",
+    "default_description": "つながる準備はできていますか？ミーティングを予約しましょう。時間枠を選んで、Meeting.aiで即座に予約完了。",
+    "user_title": "{name} - ミーティング予約",
+    "user_description": "{name}さんとのミーティングを予約しましょう。{count}個のイベントから選択できます。",
+    "user_description_one": "{name}さんとのミーティングを予約しましょう。1個のイベントから選択できます。",
+    "user_description_empty": "Meeting.aiで{name}さんとのミーティングを予約しましょう。",
+    "event_description": "{name}さんと{duration}のミーティングを予約しましょう。",
+    "og_book_with": "ミーティング予約："
+  },
+  "platforms": {
+    "gmeet": "Google Meet",
+    "teams": "Microsoft Teams",
+    "zoom": "Zoom",
+    "in_person": "対面"
+  },
+  "theme": {
+    "light": "ライトモード",
+    "dark": "ダークモード",
+    "system": "システムテーマ",
+    "toggle": "テーマ切り替え"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "loading_form": "予約フォームを読み込み中..."
+  }
+}

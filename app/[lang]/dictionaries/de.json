@@ -1,0 +1,193 @@
+{
+  "landing": {
+    "title": "Meetings mühelos buchen.",
+    "subtitle": "Link teilen. Gäste wählen eine Zeit. Meeting geplant.",
+    "cta": "Kostenlos starten",
+    "features": {
+      "tag": "Einfach gestaltet",
+      "title": "Nur die Funktionen, die Sie wirklich brauchen.",
+      "link": {
+        "title": "Ein Link",
+        "description": "Überall teilen."
+      },
+      "global": {
+        "title": "Globale Zeiten",
+        "description": "Automatisch umgerechnet."
+      },
+      "automated": {
+        "title": "Automatisiert",
+        "description": "Einladungen & Erinnerungen."
+      }
+    }
+  },
+  "user_page": {
+    "welcome": "Willkommen auf meiner Buchungsseite. Bitte wählen Sie einen Ereignistyp aus, um zu beginnen.",
+    "not_found": "Benutzername nicht gefunden",
+    "not_found_desc": "Bitte prüfen Sie, ob der Benutzername korrekt ist. Der Benutzer \"{username}\" existiert nicht oder wurde entfernt.",
+    "no_events": "{name} hat noch keine Ereignisse erstellt.",
+    "book_now": "Jetzt buchen"
+  },
+  "success": {
+    "title": "Alles erledigt! 🎉",
+    "title_cancelled": "Buchung storniert",
+    "title_rescheduled": "Erfolgreich verschoben! 🎉",
+    "subtitle": "Bestätigung wurde an Ihre E-Mail gesendet",
+    "subtitle_cancelled": "Die Buchung wurde storniert",
+    "subtitle_rescheduled": "Ihre Buchung wurde aktualisiert",
+    "copy": "Meeting-Details kopieren",
+    "copied": "Kopiert!",
+    "scheduled_with": "Geplant mit {hostName} über book.meeting.ai",
+    "scheduled_via": "Geplant über book.meeting.ai"
+  },
+  "booking_form": {
+    "details": "Details eingeben",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefonnummer",
+    "optional": "(Optional)",
+    "notes_label": "Bitte teilen Sie uns alles mit, was bei der Vorbereitung auf unser Meeting hilft.",
+    "schedule_event": "Termin buchen",
+    "scheduling": "Termin wird gebucht...",
+    "checking": "Verfügbarkeit wird geprüft...",
+    "slot_not_available": "Zeitfenster nicht verfügbar",
+    "slot_not_available_desc": "Dieses Zeitfenster ist nicht mehr verfügbar. Weiterleitung zur Auswahl einer anderen Zeit...",
+    "back": "Zurück zum Kalender",
+    "missing_time": "Buchungszeit fehlt",
+    "toast_slot_unavailable": "Dieses Zeitfenster ist nicht verfügbar",
+    "toast_redirecting": "Dieses Zeitfenster ist nicht verfügbar. Weiterleitung zur Auswahl einer anderen Zeit.",
+    "toast_confirm_fail": "Verfügbarkeit konnte nicht bestätigt werden",
+    "toast_no_longer_available": "Dieses Zeitfenster ist nicht mehr verfügbar",
+    "toast_success": "Termin wurde erfolgreich geplant",
+    "toast_fail": "Termin konnte nicht geplant werden",
+    "guest": "Gast",
+    "duration": "{min} Min.",
+    "duration_hours": "{hr} Std.",
+    "duration_hours_minutes": "{hr} Std. {min} Min."
+  },
+  "slot_picker": {
+    "host_tz_prefix": "Zeiten werden in der Zeitzone des Gastgebers angezeigt:",
+    "viewer_tz_prefix": "Zeiten werden in Ihrer Zeitzone angezeigt:",
+    "show_your_tz": "Eigene Zeitzone anzeigen ({tz})",
+    "show_host_tz": "Zeitzone des Gastgebers anzeigen ({tz})",
+    "switch_to_your_tz": "In meine Zeitzone wechseln",
+    "switch_to_host_tz": "In Zeitzone des Gastgebers wechseln",
+    "select_date_see_times": "Wählen Sie ein Datum, um verfügbare Zeiten zu sehen",
+    "select_date_check_times": "Wählen Sie ein Datum, um die Verfügbarkeit zu prüfen",
+    "select_time": "Zeit wählen",
+    "already_booked": "Bereits gebucht",
+    "not_available": "Nicht verfügbar",
+    "loading_slots": "Slots werden geladen...",
+    "book_button": "Buchen",
+    "am": "vorm.",
+    "pm": "nachm."
+  },
+  "calendar": {
+    "days": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+    "full_days": [
+      "Sonntag",
+      "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag"
+    ],
+    "unavailable": "Nicht verfügbar",
+    "fully_booked": "Ausgebucht",
+    "next_month": "Nächster Monat",
+    "prev_month": "Vorheriger Monat"
+  },
+  "timezone_selector": {
+    "search_placeholder": "Zeitzone, Stadt oder UTC-Offset suchen...",
+    "no_results": "Keine Zeitzone gefunden.",
+    "trigger_placeholder": "Zeitzone wählen",
+    "title": "Zeitzone wählen"
+  },
+  "reschedule": {
+    "title": "Verschieben: {title}",
+    "details_title": "Details zum Verschieben",
+    "current_time_label": "Aktuelle Zeit",
+    "select_new_time_title": "Neue Zeit wählen",
+    "select_new_time_subtitle": "Wählen Sie ein neues Datum und eine neue Zeit für Ihr Meeting",
+    "reason_label": "Grund für die Verschiebung",
+    "reason_placeholder": "Mir ist etwas dazwischengekommen...",
+    "additional_notes_label": "Zusätzliche Anmerkungen",
+    "notes_placeholder": "Bitte teilen Sie uns alles mit, was bei der Vorbereitung auf unser Meeting hilft.",
+    "submit_button": "Verschiebung bestätigen",
+    "submitting_button": "Wird verschoben...",
+    "toast_loading": "Buchung wird verschoben...",
+    "toast_success": "Buchung wurde erfolgreich verschoben",
+    "toast_error": "Buchung konnte nicht verschoben werden",
+    "already_cancelled": "Buchung bereits storniert",
+    "already_cancelled_desc": "Diese Buchung wurde bereits storniert und kann nicht mehr geändert werden.",
+    "cannot_reschedule_past": "Termin kann nicht verschoben werden",
+    "cannot_reschedule_past_desc": "Dieser Termin hat bereits begonnen oder liegt in der Vergangenheit. Nur zukünftige Termine können verschoben werden."
+  },
+  "cancel": {
+    "already_cancelled": "Buchung bereits storniert",
+    "already_cancelled_desc": "Diese Buchung wurde bereits storniert und kann nicht mehr geändert werden.",
+    "cannot_cancel_past": "Termin kann nicht storniert werden",
+    "cannot_cancel_past_desc": "Dieser Termin hat bereits begonnen oder liegt in der Vergangenheit. Nur zukünftige Termine können storniert werden.",
+    "reason_label": "Grund für die Stornierung",
+    "reason_placeholder": "Bitte lassen Sie uns wissen, warum Sie diese Buchung stornieren...",
+    "reason_required": "Bitte geben Sie einen Grund für die Stornierung an",
+    "submit_button": "Buchung stornieren",
+    "submitting_button": "Wird storniert...",
+    "toast_loading": "Buchung wird storniert...",
+    "toast_success": "Buchung wurde erfolgreich storniert",
+    "toast_error": "Buchung konnte nicht storniert werden"
+  },
+  "hero": {
+    "intro_title": "Kennenlerngespräch",
+    "intro_duration": "30 Min.",
+    "intro_type": "Videoanruf",
+    "intro_description": "Ein kurzes Gespräch, um Ziele und nächste Schritte abzustimmen.",
+    "host_name": "James Smith",
+    "times_shown_in": "Zeiten angezeigt in",
+    "available_times": "Verfügbare Zeiten",
+    "book_button": "Buchen",
+    "am": "vorm.",
+    "pm": "nachm.",
+    "mini_days": ["S", "M", "D", "M", "D", "F", "S"],
+    "months": [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ]
+  },
+  "metadata": {
+    "default_title": "Meeting buchen — Jetzt planen",
+    "default_description": "Bereit für den Austausch? Planen Sie ein Meeting. Wählen Sie ein Zeitfenster und buchen Sie sofort über Meeting.ai.",
+    "user_title": "{name} - Meeting buchen",
+    "user_description": "Planen Sie ein Meeting mit {name}. Wählen Sie aus {count} verfügbaren Terminen.",
+    "user_description_one": "Planen Sie ein Meeting mit {name}. Wählen Sie aus 1 verfügbaren Termin.",
+    "user_description_empty": "Buchen Sie ein Meeting mit {name} auf Meeting.ai.",
+    "event_description": "Planen Sie ein {duration} Meeting mit {name}.",
+    "og_book_with": "Meeting buchen mit"
+  },
+  "platforms": {
+    "gmeet": "Google Meet",
+    "teams": "Microsoft Teams",
+    "zoom": "Zoom",
+    "in_person": "Persönlich"
+  },
+  "theme": {
+    "light": "Heller Modus",
+    "dark": "Dunkler Modus",
+    "system": "System-Design",
+    "toggle": "Design umschalten"
+  },
+  "common": {
+    "loading": "Laden...",
+    "loading_form": "Buchungsformular wird geladen..."
+  }
+}

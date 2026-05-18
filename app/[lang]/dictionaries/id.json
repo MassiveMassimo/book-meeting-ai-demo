@@ -1,0 +1,193 @@
+{
+  "landing": {
+    "title": "Jadwalkan pertemuan dengan mudah.",
+    "subtitle": "Bagikan link Anda. Tamu memilih waktu yang cocok. Pertemuan langsung terjadwal.",
+    "cta": "Mulai gratis",
+    "features": {
+      "tag": "Didesain Sederhana",
+      "title": "Hanya fitur yang Anda butuhkan.",
+      "link": {
+        "title": "Satu link",
+        "description": "Bagikan ke mana saja."
+      },
+      "global": {
+        "title": "Zona waktu otomatis",
+        "description": "Waktu dikonversi otomatis."
+      },
+      "automated": {
+        "title": "Serba otomatis",
+        "description": "Undangan & pengingat."
+      }
+    }
+  },
+  "user_page": {
+    "welcome": "Selamat datang di halaman penjadwalan saya. Silakan pilih jenis acara untuk memulai.",
+    "not_found": "Username tidak ditemukan",
+    "not_found_desc": "Mohon periksa kembali apakah username sudah benar. User \"{username}\" tidak ditemukan atau mungkin telah dihapus.",
+    "no_events": "{name} belum membuat acara apa pun.",
+    "book_now": "Jadwalkan sekarang"
+  },
+  "success": {
+    "title": "Semua beres! 🎉",
+    "title_cancelled": "Pertemuan dibatalkan",
+    "title_rescheduled": "Berhasil dijadwalkan ulang! 🎉",
+    "subtitle": "Konfirmasi telah dikirim ke email Anda",
+    "subtitle_cancelled": "Pertemuan telah dibatalkan",
+    "subtitle_rescheduled": "Jadwal pertemuan Anda telah diperbarui",
+    "copy": "Salin detail pertemuan",
+    "copied": "Tersalin!",
+    "scheduled_with": "Dijadwalkan dengan {hostName} melalui book.meeting.ai",
+    "scheduled_via": "Dijadwalkan melalui book.meeting.ai"
+  },
+  "booking_form": {
+    "details": "Isi Detail",
+    "name": "Nama",
+    "email": "Email",
+    "phone": "Nomor Telepon",
+    "optional": "(Opsional)",
+    "notes_label": "Silakan bagikan apa pun yang dapat membantu persiapan pertemuan kita.",
+    "schedule_event": "Jadwalkan Pertemuan",
+    "scheduling": "Menjadwalkan Pertemuan...",
+    "checking": "Memeriksa ketersediaan...",
+    "slot_not_available": "Slot Waktu Tidak Tersedia",
+    "slot_not_available_desc": "Slot waktu ini sudah tidak tersedia. Mengalihkan untuk memilih waktu lain...",
+    "back": "Kembali ke Kalender",
+    "missing_time": "Waktu pertemuan tidak ditemukan",
+    "toast_slot_unavailable": "Slot waktu ini tidak tersedia",
+    "toast_redirecting": "Slot waktu ini tidak tersedia. Mengalihkan untuk memilih waktu lain.",
+    "toast_confirm_fail": "Gagal mengonfirmasi ketersediaan",
+    "toast_no_longer_available": "Slot waktu ini sudah tidak lagi tersedia",
+    "toast_success": "Pertemuan berhasil dijadwalkan",
+    "toast_fail": "Gagal menjadwalkan pertemuan",
+    "guest": "Tamu",
+    "duration": "{min} menit",
+    "duration_hours": "{hr} jam",
+    "duration_hours_minutes": "{hr} jam {min} menit"
+  },
+  "slot_picker": {
+    "host_tz_prefix": "Waktu ditampilkan dalam zona waktu host:",
+    "viewer_tz_prefix": "Waktu ditampilkan dalam zona waktu Anda:",
+    "show_your_tz": "Tampilkan zona waktu Anda ({tz})",
+    "show_host_tz": "Tampilkan zona waktu host ({tz})",
+    "switch_to_your_tz": "Ganti ke zona waktu Anda",
+    "switch_to_host_tz": "Ganti ke zona waktu host",
+    "select_date_see_times": "Pilih tanggal untuk melihat waktu yang tersedia",
+    "select_date_check_times": "Pilih tanggal untuk memeriksa ketersediaan waktu",
+    "select_time": "Pilih waktu",
+    "already_booked": "Sudah terisi",
+    "not_available": "Tidak tersedia",
+    "loading_slots": "Memuat slot waktu...",
+    "book_button": "Jadwalkan",
+    "am": "AM",
+    "pm": "PM"
+  },
+  "calendar": {
+    "days": ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+    "full_days": [
+      "Minggu",
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu"
+    ],
+    "unavailable": "Tidak tersedia",
+    "fully_booked": "Sudah penuh",
+    "next_month": "Bulan depan",
+    "prev_month": "Bulan lalu"
+  },
+  "timezone_selector": {
+    "search_placeholder": "Cari zona waktu, kota, atau offset UTC...",
+    "no_results": "Zona waktu tidak ditemukan.",
+    "trigger_placeholder": "Pilih Zona Waktu",
+    "title": "Pilih Zona Waktu"
+  },
+  "reschedule": {
+    "title": "Jadwalkan Ulang: {title}",
+    "details_title": "Detail Penjadwalan Ulang",
+    "current_time_label": "Waktu Saat Ini",
+    "select_new_time_title": "Pilih Waktu Baru",
+    "select_new_time_subtitle": "Pilih tanggal dan waktu baru untuk pertemuan Anda",
+    "reason_label": "Alasan Penjadwalan Ulang",
+    "reason_placeholder": "Ada keperluan mendadak...",
+    "additional_notes_label": "Catatan Tambahan",
+    "notes_placeholder": "Silakan bagikan apa pun yang dapat membantu persiapan pertemuan kita.",
+    "submit_button": "Konfirmasi Penjadwalan Ulang",
+    "submitting_button": "Menjadwalkan Ulang...",
+    "toast_loading": "Sedang menjadwalkan ulang...",
+    "toast_success": "Penjadwalan ulang berhasil",
+    "toast_error": "Gagal menjadwalkan ulang",
+    "already_cancelled": "Pertemuan Sudah Dibatalkan",
+    "already_cancelled_desc": "Pertemuan ini sudah dibatalkan dan tidak dapat dijadwalkan ulang.",
+    "cannot_reschedule_past": "Tidak Dapat Menjadwalkan Ulang",
+    "cannot_reschedule_past_desc": "Pertemuan ini sudah dimulai atau sudah lewat. Hanya pertemuan mendatang yang dapat dijadwalkan ulang."
+  },
+  "cancel": {
+    "already_cancelled": "Pertemuan Sudah Dibatalkan",
+    "already_cancelled_desc": "Pertemuan ini sudah dibatalkan sebelumnya dan tidak dapat diubah.",
+    "cannot_cancel_past": "Pertemuan Tidak Dapat Dibatalkan",
+    "cannot_cancel_past_desc": "Pertemuan ini sudah dimulai atau sudah lewat. Hanya pertemuan mendatang yang dapat dibatalkan.",
+    "reason_label": "Alasan Pembatalan",
+    "reason_placeholder": "Mohon beri tahu kami alasan Anda membatalkan pertemuan ini...",
+    "reason_required": "Mohon masukkan alasan pembatalan",
+    "submit_button": "Batalkan Pertemuan",
+    "submitting_button": "Membatalkan...",
+    "toast_loading": "Sedang membatalkan pertemuan...",
+    "toast_success": "Pertemuan berhasil dibatalkan",
+    "toast_error": "Gagal membatalkan pertemuan"
+  },
+  "hero": {
+    "intro_title": "Obrolan pembuka",
+    "intro_duration": "30 menit",
+    "intro_type": "Panggilan video",
+    "intro_description": "Perkenalan singkat untuk menyelaraskan tujuan dan langkah selanjutnya.",
+    "host_name": "Budi Santoso",
+    "times_shown_in": "Waktu ditampilkan dalam",
+    "available_times": "Waktu tersedia",
+    "book_button": "Jadwalkan",
+    "am": "AM",
+    "pm": "PM",
+    "mini_days": ["M", "S", "S", "R", "K", "J", "S"],
+    "months": [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember"
+    ]
+  },
+  "metadata": {
+    "default_title": "Jadwalkan Pertemuan — Pilih Waktu",
+    "default_description": "Siap terhubung? Jadwalkan pertemuan. Pilih slot waktu Anda dan konfirmasi dalam hitungan detik dengan Meeting.ai.",
+    "user_title": "{name} - Jadwalkan Pertemuan",
+    "user_description": "Jadwalkan pertemuan dengan {name}. Pilih dari {count} opsi yang tersedia.",
+    "user_description_one": "Jadwalkan pertemuan dengan {name}. Pilih 1 opsi yang tersedia.",
+    "user_description_empty": "Jadwalkan pertemuan dengan {name} di Meeting.ai.",
+    "event_description": "Jadwalkan pertemuan {duration} dengan {name}.",
+    "og_book_with": "Jadwalkan pertemuan dengan"
+  },
+  "platforms": {
+    "gmeet": "Google Meet",
+    "teams": "Microsoft Teams",
+    "zoom": "Zoom",
+    "in_person": "Tatap Muka"
+  },
+  "theme": {
+    "light": "Mode terang",
+    "dark": "Mode gelap",
+    "system": "Tema sistem",
+    "toggle": "Ganti tema"
+  },
+  "common": {
+    "loading": "Memuat...",
+    "loading_form": "Memuat formulir penjadwalan..."
+  }
+}

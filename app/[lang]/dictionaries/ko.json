@@ -1,0 +1,193 @@
+{
+  "landing": {
+    "title": "회의 예약을 쉽고 간편하게.",
+    "subtitle": "링크를 공유하세요. 게스트가 시간을 선택하면 회의가 예약됩니다.",
+    "cta": "무료로 시작하기",
+    "features": {
+      "tag": "심플한 디자인",
+      "title": "꼭 필요한 기능만 담았습니다.",
+      "link": {
+        "title": "하나의 링크",
+        "description": "어디서든 공유하세요."
+      },
+      "global": {
+        "title": "글로벌 시간대",
+        "description": "자동으로 변환됩니다."
+      },
+      "automated": {
+        "title": "자동화",
+        "description": "초대장 및 리마인더 발송."
+      }
+    }
+  },
+  "user_page": {
+    "welcome": "회의 예약 페이지에 오신 것을 환영합니다. 시작하려면 이벤트 유형을 선택해 주세요.",
+    "not_found": "사용자를 찾을 수 없습니다",
+    "not_found_desc": "사용자 이름이 정확한지 다시 확인해 주세요. \"{username}\" 사용자는 존재하지 않거나 삭제되었을 수 있습니다.",
+    "no_events": "{name}님이 생성한 이벤트가 아직 없습니다.",
+    "book_now": "지금 예약하기"
+  },
+  "success": {
+    "title": "예약이 완료되었습니다! 🎉",
+    "title_cancelled": "예약 취소됨",
+    "title_rescheduled": "일정 변경 완료! 🎉",
+    "subtitle": "이메일로 확인 메일이 발송되었습니다",
+    "subtitle_cancelled": "예약이 취소되었습니다",
+    "subtitle_rescheduled": "예약 정보가 업데이트되었습니다",
+    "copy": "회의 정보 복사",
+    "copied": "복사 완료!",
+    "scheduled_with": "book.meeting.ai를 통해 {hostName}님과 예약됨",
+    "scheduled_via": "book.meeting.ai를 통해 예약됨"
+  },
+  "booking_form": {
+    "details": "상세 정보 입력",
+    "name": "이름",
+    "email": "이메일",
+    "phone": "전화번호",
+    "optional": "(선택 사항)",
+    "notes_label": "회의 준비에 도움이 될 만한 내용이 있다면 공유해 주세요.",
+    "schedule_event": "이벤트 예약하기",
+    "scheduling": "이벤트 예약 중...",
+    "checking": "예약 가능 여부 확인 중...",
+    "slot_not_available": "예약 불가능한 시간",
+    "slot_not_available_desc": "이 시간대는 더 이상 선택할 수 없습니다. 다른 시간을 선택할 수 있도록 이동합니다...",
+    "back": "캘린더로 돌아가기",
+    "missing_time": "예약 시간이 누락되었습니다",
+    "toast_slot_unavailable": "이 시간대는 예약할 수 없습니다",
+    "toast_redirecting": "이 시간대는 예약이 불가능합니다. 다른 시간을 선택할 수 있도록 이동합니다.",
+    "toast_confirm_fail": "예약 가능 여부를 확인할 수 없습니다",
+    "toast_no_longer_available": "이 시간대는 더 이상 예약할 수 없습니다",
+    "toast_success": "이벤트 예약이 성공적으로 완료되었습니다",
+    "toast_fail": "이벤트 예약에 실패했습니다",
+    "guest": "게스트",
+    "duration": "{min}분",
+    "duration_hours": "{hr}시간",
+    "duration_hours_minutes": "{hr}시간 {min}분"
+  },
+  "slot_picker": {
+    "host_tz_prefix": "호스트의 시간대 기준:",
+    "viewer_tz_prefix": "귀하의 시간대 기준:",
+    "show_your_tz": "내 시간대 표시 ({tz})",
+    "show_host_tz": "호스트 시간대 표시 ({tz})",
+    "switch_to_your_tz": "내 시간대로 변경",
+    "switch_to_host_tz": "호스트 시간대로 변경",
+    "select_date_see_times": "예약 가능한 시간을 보려면 날짜를 선택하세요",
+    "select_date_check_times": "예약 가능한 시간을 확인하려면 날짜를 선택하세요",
+    "select_time": "시간 선택",
+    "already_booked": "예약됨",
+    "not_available": "불가능",
+    "loading_slots": "시간대 불러오는 중...",
+    "book_button": "예약하기",
+    "am": "오전",
+    "pm": "오후"
+  },
+  "calendar": {
+    "days": ["일", "월", "화", "수", "목", "금", "토"],
+    "full_days": [
+      "일요일",
+      "월요일",
+      "화요일",
+      "수요일",
+      "목요일",
+      "금요일",
+      "토요일"
+    ],
+    "unavailable": "불가능",
+    "fully_booked": "예약 마감",
+    "next_month": "다음 달",
+    "prev_month": "이전 달"
+  },
+  "timezone_selector": {
+    "search_placeholder": "시간대, 도시 또는 UTC 오프셋 검색...",
+    "no_results": "검색 결과가 없습니다.",
+    "trigger_placeholder": "시간대 선택",
+    "title": "시간대 선택"
+  },
+  "reschedule": {
+    "title": "일정 변경: {title}",
+    "details_title": "일정 변경 상세",
+    "current_time_label": "현재 예약 시간",
+    "select_new_time_title": "새로운 시간 선택",
+    "select_new_time_subtitle": "회의를 위한 새로운 날짜와 시간을 선택하세요",
+    "reason_label": "일정 변경 사유",
+    "reason_placeholder": "일정이 생겨서...",
+    "additional_notes_label": "추가 메모",
+    "notes_placeholder": "회의 준비에 도움이 될 만한 내용이 있다면 공유해 주세요.",
+    "submit_button": "일정 변경 확인",
+    "submitting_button": "일정 변경 중...",
+    "toast_loading": "예약 일정을 변경하는 중...",
+    "toast_success": "예약 일정이 성공적으로 변경되었습니다",
+    "toast_error": "예약 일정 변경에 실패했습니다",
+    "already_cancelled": "이미 취소된 예약",
+    "already_cancelled_desc": "이 예약은 이미 취소되었으며 수정할 수 없습니다.",
+    "cannot_reschedule_past": "일정을 변경할 수 없는 이벤트",
+    "cannot_reschedule_past_desc": "이 이벤트는 이미 시작되었거나 종료되었습니다. 향후 예정된 이벤트만 일정을 변경할 수 있습니다."
+  },
+  "cancel": {
+    "already_cancelled": "이미 취소된 예약",
+    "already_cancelled_desc": "이 예약은 이미 취소되었으며 수정할 수 없습니다.",
+    "cannot_cancel_past": "취소할 수 없는 이벤트",
+    "cannot_cancel_past_desc": "이 이벤트는 이미 시작되었거나 종료되었습니다. 향후 예정된 이벤트만 취소할 수 있습니다.",
+    "reason_label": "취소 사유",
+    "reason_placeholder": "예약을 취소하시는 사유를 알려주세요...",
+    "reason_required": "취소 사유를 입력해 주세요",
+    "submit_button": "예약 취소",
+    "submitting_button": "취소 중...",
+    "toast_loading": "예약을 취소하는 중...",
+    "toast_success": "예약이 성공적으로 취소되었습니다",
+    "toast_error": "예약 취소에 실패했습니다"
+  },
+  "hero": {
+    "intro_title": "인트로 회의",
+    "intro_duration": "30분",
+    "intro_type": "화상 통화",
+    "intro_description": "목표와 다음 단계를 조율하기 위한 짧은 회의입니다.",
+    "host_name": "James Smith",
+    "times_shown_in": "표시 시간대:",
+    "available_times": "예약 가능한 시간",
+    "book_button": "예약하기",
+    "am": "오전",
+    "pm": "오후",
+    "mini_days": ["일", "월", "화", "수", "목", "금", "토"],
+    "months": [
+      "1월",
+      "2월",
+      "3월",
+      "4월",
+      "5월",
+      "6월",
+      "7월",
+      "8월",
+      "9월",
+      "10월",
+      "11월",
+      "12월"
+    ]
+  },
+  "metadata": {
+    "default_title": "회의 예약 — 지금 일정을 잡으세요",
+    "default_description": "대화할 준비가 되셨나요? 회의 일정을 잡으세요. 원하는 시간대를 선택하고 Meeting.ai에서 즉시 예약하세요.",
+    "user_title": "{name} - 회의 예약",
+    "user_description": "{name}님과 회의 일정을 잡으세요. {count}개의 예약 가능한 이벤트 중에서 선택하세요.",
+    "user_description_one": "{name}님과 회의 일정을 잡으세요. 1개의 예약 가능한 이벤트 중에서 선택하세요.",
+    "user_description_empty": "Meeting.ai에서 {name}님과의 회의를 예약하세요.",
+    "event_description": "{name}님과 {duration} 회의 일정을 잡으세요.",
+    "og_book_with": "회의 예약 대상:"
+  },
+  "platforms": {
+    "gmeet": "Google Meet",
+    "teams": "Microsoft Teams",
+    "zoom": "Zoom",
+    "in_person": "대면 회의"
+  },
+  "theme": {
+    "light": "라이트 모드",
+    "dark": "다크 모드",
+    "system": "시스템 테마",
+    "toggle": "테마 전환"
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "loading_form": "예약 양식을 불러오는 중..."
+  }
+}
