@@ -6,7 +6,7 @@ import type {
   UserAppointmentsResponse,
 } from "@/lib/types/api";
 
-import { addMinutes, format } from "date-fns";
+import { addMinutes } from "date-fns";
 import { fromZonedTime } from "date-fns-tz";
 
 // Static demo host. Single hardcoded user for the demo build.
@@ -95,44 +95,72 @@ export function getMockSingleAppointment(
   };
 }
 
-// Generate weekday 9am-5pm slots in the host's timezone.
-export function generateMockSlots(
+type RawDay = {
+  date: string;
+  slots: { start: string; end: string; available?: boolean }[];
+};
+export type RawSlotResponse = { days: RawDay[]; timezone: string };
+
+function pad(n: number) {
+  return n < 10 ? `0${n}` : `${n}`;
+}
+
+// Raw API-shaped response. `transformSlots` consumes this to produce the
+// AvailableSlot[] used by both the calendar and the booking form. Returning
+// the same raw shape from `mutate()` keeps revalidation consistent.
+export function generateMockSlotsRaw(
   durationMinutes: number,
   startDate: string,
   endDate: string,
-): AvailableSlot[] {
-  const slots: AvailableSlot[] = [];
+): RawSlotResponse {
+  const days: RawDay[] = [];
   const start = new Date(`${startDate}T00:00:00`);
   const end = new Date(`${endDate}T23:59:59`);
 
   for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
     const dow = d.getDay();
-    if (dow === 0 || dow === 6) continue; // weekends off
+    if (dow === 0 || dow === 6) continue;
 
-    const dateStr = format(d, "yyyy-MM-dd");
-    let cursor = new Date(`${dateStr}T09:00:00`);
-    const dayEnd = new Date(`${dateStr}T17:00:00`);
+    const dateStr = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    const slots: RawDay["slots"] = [];
+    const dayStartMin = 9 * 60;
+    const dayEndMin = 17 * 60;
+    for (let m = dayStartMin; m + durationMinutes <= dayEndMin; m += durationMinutes) {
+      const eMin = m + durationMinutes;
+      slots.push({
+        start: `${pad(Math.floor(m / 60))}:${pad(m % 60)}`,
+        end: `${pad(Math.floor(eMin / 60))}:${pad(eMin % 60)}`,
+        available: true,
+      });
+    }
+    days.push({ date: dateStr, slots });
+  }
 
-    while (addMinutes(cursor, durationMinutes) <= dayEnd) {
-      const startLocal = format(cursor, "yyyy-MM-dd'T'HH:mm:ss");
-      const endLocal = format(
-        addMinutes(cursor, durationMinutes),
-        "yyyy-MM-dd'T'HH:mm:ss",
-      );
+  return { days, timezone: MOCK_HOST_TIMEZONE };
+}
+
+export function generateMockSlots(
+  durationMinutes: number,
+  startDate: string,
+  endDate: string,
+): AvailableSlot[] {
+  const raw = generateMockSlotsRaw(durationMinutes, startDate, endDate);
+  const out: AvailableSlot[] = [];
+  for (const day of raw.days) {
+    for (const slot of day.slots) {
       try {
-        slots.push({
-          start: fromZonedTime(startLocal, MOCK_HOST_TIMEZONE).toISOString(),
-          end: fromZonedTime(endLocal, MOCK_HOST_TIMEZONE).toISOString(),
+        out.push({
+          start: fromZonedTime(`${day.date}T${slot.start}:00`, raw.timezone).toISOString(),
+          end: fromZonedTime(`${day.date}T${slot.end}:00`, raw.timezone).toISOString(),
           available: true,
-          timezone: MOCK_HOST_TIMEZONE,
+          timezone: raw.timezone,
         });
       } catch {
         // skip
       }
-      cursor = addMinutes(cursor, durationMinutes);
     }
   }
-  return slots;
+  return out;
 }
 
 // Bookings live in localStorage on the client. Server-side returns null.

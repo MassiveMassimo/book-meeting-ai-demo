@@ -1,9 +1,14 @@
 import type { AvailableSlot } from "@/lib/types/api";
 
 import { fromZonedTime } from "date-fns-tz";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { generateMockSlots, MOCK_EVENTS, MOCK_HOST_USERNAME } from "@/lib/mocks";
+import {
+  generateMockSlotsRaw,
+  MOCK_EVENTS,
+  MOCK_HOST_USERNAME,
+  type RawSlotResponse,
+} from "@/lib/mocks";
 
 export function transformSlots(data: unknown, timezone: string): AvailableSlot[] {
   const slots: AvailableSlot[] = [];
@@ -32,12 +37,10 @@ export function transformSlots(data: unknown, timezone: string): AvailableSlot[]
     for (const day of data.days) {
       const { date, slots: daySlots = [] } = day;
       for (const slot of daySlots) {
-        const baseStart = `${date}T${slot.start}:00`;
-        const baseEnd = `${date}T${slot.end}:00`;
         try {
           slots.push({
-            start: fromZonedTime(baseStart, responseTimezone).toISOString(),
-            end: fromZonedTime(baseEnd, responseTimezone).toISOString(),
+            start: fromZonedTime(`${date}T${slot.start}:00`, responseTimezone).toISOString(),
+            end: fromZonedTime(`${date}T${slot.end}:00`, responseTimezone).toISOString(),
             available: slot.available !== false,
             timezone: responseTimezone,
           });
@@ -61,29 +64,39 @@ export function useAvailableSlots(
   timezone: string,
 ) {
   const [slots, setSlots] = useState<AvailableSlot[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // Initial loading: consumers must not run availability checks against an
+  // empty array on first render.
+  const [isLoading, setIsLoading] = useState(true);
+  const rawRef = useRef<RawSlotResponse | null>(null);
 
   useEffect(() => {
     if (!username || !eventTypeId || !startDate || !endDate || !timezone) {
+      rawRef.current = null;
       setSlots([]);
+      setIsLoading(false);
       return;
     }
 
     if (username !== MOCK_HOST_USERNAME) {
+      rawRef.current = null;
       setSlots([]);
+      setIsLoading(false);
       return;
     }
 
     const event = MOCK_EVENTS.find((e) => e.slug === eventTypeId);
     if (!event) {
+      rawRef.current = null;
       setSlots([]);
+      setIsLoading(false);
       return;
     }
 
     setIsLoading(true);
-    // Simulate a brief network delay for skeleton states.
     const timer = setTimeout(() => {
-      setSlots(generateMockSlots(event.duration_minutes, startDate, endDate));
+      const raw = generateMockSlotsRaw(event.duration_minutes, startDate, endDate);
+      rawRef.current = raw;
+      setSlots(transformSlots(raw, timezone));
       setIsLoading(false);
     }, 150);
 
@@ -95,6 +108,9 @@ export function useAvailableSlots(
     isLoading,
     isValidating: false,
     error: null,
-    mutate: async () => undefined,
+    // Revalidation returns the same raw payload synchronously so the booking
+    // form's `await mutate()` + `transformSlots(rawData, ...)` path matches
+    // the real API contract.
+    mutate: async () => rawRef.current ?? undefined,
   };
 }
