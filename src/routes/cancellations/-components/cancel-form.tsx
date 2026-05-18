@@ -1,5 +1,3 @@
-"use client";
-
 import type { Dictionary } from "@/lib/copy";
 import type { BookingDetails, Profile } from "@/lib/types/api";
 
@@ -15,7 +13,7 @@ import {
   MapPin,
   Video,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -105,7 +103,7 @@ export function CancelForm({
         }
 
         setTimeout(() => {
-          router.push(`/success?${params.toString()}`);
+          router.navigate({ to: `/success?${params.toString()}` as any });
         }, 1500);
         return dict.cancel.toast_success;
       },
