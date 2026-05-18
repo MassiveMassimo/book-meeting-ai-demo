@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { BookingDetails, EventType, Profile } from "@/lib/types/api";
 
 import { useEffect, useMemo, useState } from "react";
@@ -45,7 +45,6 @@ interface RescheduleInterfaceProps {
   profile: Profile;
   meetingPlatform: string;
   hostTimezone?: string;
-  lang?: string;
   dict: Dictionary;
 }
 
@@ -56,7 +55,6 @@ export function RescheduleInterface({
   profile,
   meetingPlatform,
   hostTimezone,
-  lang = "en",
   dict,
 }: RescheduleInterfaceProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -131,7 +129,7 @@ export function RescheduleInterface({
   const currentStartDate = parseISO(booking.start_time);
   const currentEndDate = parseISO(booking.end_time);
 
-  const currentFormattedDate = new Intl.DateTimeFormat(lang, {
+  const currentFormattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -153,7 +151,7 @@ export function RescheduleInterface({
   const isDifferentDay =
     formatInTimeZone(currentStartDate, activeTimezone, "yyyy-MM-dd") !==
     formatInTimeZone(currentEndDate, activeTimezone, "yyyy-MM-dd");
-  const endDateInTz = new Intl.DateTimeFormat(lang, {
+  const endDateInTz = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -256,7 +254,6 @@ export function RescheduleInterface({
         selectedSlot={selectedSlot}
         timezone={timezone}
         hostTimezone={hostTimezone}
-        lang={lang}
         dict={dict}
         onBack={() => setStep("time-slot")}
       />
@@ -383,7 +380,6 @@ export function RescheduleInterface({
           unavailableDates={unavailableDates}
           fullyBookedDates={fullyBookedDates}
           dict={dict.calendar}
-          lang={lang}
         />
       </div>
 
@@ -402,7 +398,6 @@ export function RescheduleInterface({
               use24Hour={use24Hour}
               onUse24HourChange={setUse24Hour}
               dict={dict.slot_picker}
-              lang={lang}
             />
           </div>
         ) : (
@@ -436,7 +431,7 @@ export function RescheduleInterface({
                     ) ? (
                     <span className="flex items-center gap-1">
                       <span className="font-semibold">
-                        {new Intl.DateTimeFormat(lang, {
+                        {new Intl.DateTimeFormat("en-US", {
                           weekday: "short",
                           day: "numeric",
                           month:
@@ -457,7 +452,7 @@ export function RescheduleInterface({
                       </span>
                       <span className="text-muted-foreground px-1">-</span>
                       <span className="font-semibold">
-                        {new Intl.DateTimeFormat(lang, {
+                        {new Intl.DateTimeFormat("en-US", {
                           weekday: "short",
                           day: "numeric",
                           month:
@@ -482,7 +477,7 @@ export function RescheduleInterface({
                       </span>
                     </span>
                   ) : (
-                    new Intl.DateTimeFormat(lang, {
+                    new Intl.DateTimeFormat("en-US", {
                       weekday: "short",
                       month: "short",
                       day: "numeric",
@@ -524,7 +519,6 @@ export function RescheduleInterface({
                 onUse24HourChange={setUse24Hour}
                 inDrawer
                 dict={dict.slot_picker}
-                lang={lang}
               />
             )}
           </div>

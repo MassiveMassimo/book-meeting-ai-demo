@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 
 import { Clock, Video } from "lucide-react";
 

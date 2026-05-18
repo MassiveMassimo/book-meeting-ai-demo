@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { BookingDetails, EventType, Profile } from "@/lib/types/api";
 
 import { FormEvent, useState } from "react";
@@ -33,7 +33,6 @@ interface RescheduleFormProps {
   selectedSlot: string; // ISO string
   timezone: string;
   hostTimezone?: string;
-  lang?: string;
   dict: Dictionary;
   onBack: () => void;
 }
@@ -48,7 +47,6 @@ export function RescheduleForm({
   selectedSlot,
   timezone,
   hostTimezone,
-  lang = "en",
   dict,
   onBack,
 }: RescheduleFormProps) {
@@ -58,7 +56,7 @@ export function RescheduleForm({
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const formattedDate = new Intl.DateTimeFormat(lang, {
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -125,8 +123,7 @@ export function RescheduleForm({
         }
 
         setTimeout(() => {
-          const successUrl = lang ? `/${lang}/success` : `/success`;
-          router.push(`${successUrl}?${params.toString()}`);
+          router.push(`/success?${params.toString()}`);
         }, 1500);
         return dict.reschedule.toast_success;
       },

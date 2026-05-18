@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 import { redirect } from "next/navigation";
 
-import { getDictionary, Locale } from "@/app/[lang]/dictionaries";
+import { dict } from "@/lib/copy";
 import {
   fetchSingleAppointment,
   fetchUserAppointments,
@@ -55,16 +55,15 @@ async function getEventDetails(
 
 export default async function BookingPage({
   params,
-}: PageProps<"/[lang]/[username]/[eventType]/book">) {
-  const { username, eventType: eventSlug, lang } = await params;
-  const [eventDetails, profile, dict] = await Promise.all([
+}: PageProps<"/[username]/[eventType]/book">) {
+  const { username, eventType: eventSlug } = await params;
+  const [eventDetails, profile] = await Promise.all([
     getEventDetails(username, eventSlug),
     getUserProfile(username),
-    getDictionary(lang as Locale),
   ]);
 
   if (!eventDetails) {
-    redirect(`/${lang}/${username}?error=event_not_found`);
+    redirect(`/${username}?error=event_not_found`);
   }
 
   const eventType = {
@@ -97,7 +96,6 @@ export default async function BookingPage({
         profile={userProfile}
         meetingPlatform={eventDetails.integration}
         hostTimezone={eventDetails.host_timezone}
-        lang={lang}
         dict={dict}
       />
     </Suspense>

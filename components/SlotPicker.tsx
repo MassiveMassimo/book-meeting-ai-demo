@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { EventType, Profile } from "@/lib/types/api";
 
 import { useMemo, useState } from "react";
@@ -55,7 +55,6 @@ interface SlotPickerProps {
   confirmLabel?: string;
   className?: string;
   dict: Dictionary;
-  lang?: string;
 }
 
 export function SlotPicker({
@@ -71,7 +70,6 @@ export function SlotPicker({
   confirmLabel,
   className,
   dict,
-  lang = "en",
 }: SlotPickerProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
@@ -356,7 +354,6 @@ export function SlotPicker({
           unavailableDates={unavailableDates}
           fullyBookedDates={fullyBookedDates}
           dict={dict.calendar}
-          lang={lang}
         />
       </div>
 
@@ -376,7 +373,6 @@ export function SlotPicker({
               onUse24HourChange={setUse24Hour}
               confirmLabel={confirmLabel}
               dict={dict.slot_picker}
-              lang={lang}
             />
           </div>
         ) : (
@@ -412,7 +408,7 @@ export function SlotPicker({
                     ) ? (
                     <span className="flex items-center gap-1">
                       <span className="font-semibold">
-                        {new Intl.DateTimeFormat(lang, {
+                        {new Intl.DateTimeFormat("en-US", {
                           weekday: "short",
                           day: "numeric",
                           month:
@@ -433,7 +429,7 @@ export function SlotPicker({
                       </span>
                       <span className="text-muted-foreground px-1">-</span>
                       <span className="font-semibold">
-                        {new Intl.DateTimeFormat(lang, {
+                        {new Intl.DateTimeFormat("en-US", {
                           weekday: "short",
                           day: "numeric",
                           month:
@@ -458,7 +454,7 @@ export function SlotPicker({
                       </span>
                     </span>
                   ) : (
-                    new Intl.DateTimeFormat(lang, {
+                    new Intl.DateTimeFormat("en-US", {
                       weekday: "short",
                       month: "short",
                       day: "numeric",
@@ -502,7 +498,6 @@ export function SlotPicker({
               inDrawer
               confirmLabel={confirmLabel}
               dict={dict.slot_picker}
-              lang={lang}
             />
           </div>
         </DrawerContent>

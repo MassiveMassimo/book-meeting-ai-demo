@@ -3,13 +3,13 @@ import type { Metadata } from "next";
 import { Ban, CalendarX } from "lucide-react";
 import { notFound } from "next/navigation";
 
-import { getDictionary, Locale } from "@/app/[lang]/dictionaries";
+import { dict } from "@/lib/copy";
 import { fetchBookingDetails } from "@/lib/api-helpers";
 import { CancelForm } from "./CancelForm";
 
 export async function generateMetadata({
   params,
-}: PageProps<"/[lang]/cancellations/[bookingId]">): Promise<Metadata> {
+}: PageProps<"/cancellations/[bookingId]">): Promise<Metadata> {
   const { bookingId } = await params;
   const booking = await fetchBookingDetails(bookingId, {
     next: { revalidate: 60 },
@@ -27,14 +27,11 @@ export async function generateMetadata({
 
 export default async function CancelBookingPage({
   params,
-}: PageProps<"/[lang]/cancellations/[bookingId]">) {
-  const { bookingId, lang } = await params;
-  const [booking, dict] = await Promise.all([
-    fetchBookingDetails(bookingId, {
-      next: { revalidate: 60 },
-    }),
-    getDictionary(lang as Locale),
-  ]);
+}: PageProps<"/cancellations/[bookingId]">) {
+  const { bookingId } = await params;
+  const booking = await fetchBookingDetails(bookingId, {
+    next: { revalidate: 60 },
+  });
 
   if (!booking) {
     notFound();
@@ -80,7 +77,6 @@ export default async function CancelBookingPage({
     <CancelForm
       bookingId={bookingId}
       booking={booking}
-      lang={lang}
       dict={dict}
       profile={{
         name: booking.host.name,

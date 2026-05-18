@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { EventType } from "@/lib/types/api";
 
 import { useState } from "react";
@@ -24,13 +24,7 @@ import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { formatPlatformName } from "@/lib/utils/platform";
 
-export function SuccessContent({
-  dict,
-  lang = "en",
-}: {
-  dict: Dictionary;
-  lang?: string;
-}) {
+export function SuccessContent({ dict }: { dict: Dictionary }) {
   const searchParams = useSearchParams();
   const dateParam = searchParams.get("date");
   const timeParam = searchParams.get("time");
@@ -65,7 +59,7 @@ export function SuccessContent({
   if (!dateParam || !timeParam || !eventType) return null;
 
   const date = parseISO(dateParam);
-  const formattedDate = new Intl.DateTimeFormat(lang, {
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
@@ -222,7 +216,7 @@ export function SuccessContent({
                   variant="outline"
                   className="w-full gap-2 rounded-xl font-semibold shadow-sm"
                 >
-                  <Link href={`/${lang}/${username}`}>
+                  <Link href={`/${username}`}>
                     <CalendarPlus className="size-4" />
                     Book another meeting
                   </Link>

@@ -1,4 +1,4 @@
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 
 import { useState } from "react";
 
@@ -32,7 +32,6 @@ interface CalendarProps {
   fullyBookedDates?: Date[]; // Array of specific dates that are fully booked
   onMonthChange?: (month: Date) => void; // Callback when month changes
   dict: Dictionary["calendar"];
-  lang?: string;
 }
 
 export function Calendar({
@@ -43,7 +42,6 @@ export function Calendar({
   fullyBookedDates = [],
   onMonthChange,
   dict,
-  lang = "en",
 }: CalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(startOfToday());
   const today = startOfToday();
@@ -60,7 +58,7 @@ export function Calendar({
 
   const firstDayOfMonth = getDay(startOfMonth(currentMonth)); // 0 = Sunday
 
-  const formattedMonthYear = new Intl.DateTimeFormat(lang, {
+  const formattedMonthYear = new Intl.DateTimeFormat("en-US", {
     month: "long",
     year: "numeric",
   }).format(currentMonth);

@@ -1,14 +1,9 @@
 import { Suspense } from "react";
 
-import { getDictionary, Locale } from "@/app/[lang]/dictionaries";
+import { dict } from "@/lib/copy";
 import { SuccessContent } from "./SuccessContent";
 
-export default async function SuccessPage({
-  params,
-}: PageProps<"/[lang]/success">) {
-  const { lang } = await params;
-  const dict = await getDictionary(lang as Locale);
-
+export default function SuccessPage() {
   return (
     <Suspense
       fallback={
@@ -17,7 +12,7 @@ export default async function SuccessPage({
         </div>
       }
     >
-      <SuccessContent dict={dict} lang={lang} />
+      <SuccessContent dict={dict} />
     </Suspense>
   );
 }

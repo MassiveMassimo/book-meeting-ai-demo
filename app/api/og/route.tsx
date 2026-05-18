@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-import { getDictionary, hasLocale, Locale } from "@/app/[lang]/dictionaries";
+import { dict } from "@/lib/copy";
 
 export const size = {
   width: 1200,
@@ -43,10 +43,6 @@ export async function GET(request: Request) {
 
   const eventTitleParam = searchParams.get("title")?.trim() || "";
   const avatarParam = searchParams.get("avatar")?.trim() || "";
-  const langParam = searchParams.get("lang")?.trim() || "en";
-
-  const lang = hasLocale(langParam) ? langParam : "en";
-  const dict = await getDictionary(lang as Locale);
 
   const nameParam =
     searchParams.get("name")?.trim() || dict.metadata.og_book_with;

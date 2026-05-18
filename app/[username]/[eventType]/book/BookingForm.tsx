@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { EventType, Profile } from "@/lib/types/api";
 
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
@@ -35,7 +35,6 @@ interface BookingFormProps {
   profile: Profile;
   meetingPlatform: string;
   hostTimezone?: string;
-  lang?: string;
   dict: Dictionary;
 }
 
@@ -45,7 +44,6 @@ export function BookingForm({
   profile,
   meetingPlatform,
   hostTimezone,
-  lang,
   dict,
 }: BookingFormProps) {
   const router = useRouter();
@@ -105,14 +103,12 @@ export function BookingForm({
   const SUCCESS_REDIRECT_DELAY_MS = 1000;
 
   const redirectToBookingInterface = useCallback(() => {
-    const baseUrl = lang
-      ? `/${lang}/${username}/${eventType.id}`
-      : `/${username}/${eventType.id}`;
+    const baseUrl = `/${username}/${eventType.id}`;
 
     setTimeout(() => {
       router.push(baseUrl);
     }, REDIRECT_DELAY_MS);
-  }, [router, username, eventType.id, lang]);
+  }, [router, username, eventType.id]);
 
   const checkSlotAvailability = useCallback(
     (slotsOverride?: typeof slots): boolean => {
@@ -175,7 +171,7 @@ export function BookingForm({
     );
   }
 
-  const formattedDate = new Intl.DateTimeFormat(lang, {
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
@@ -280,8 +276,7 @@ export function BookingForm({
           params.set("location", eventType.location);
         }
 
-        const successUrl = lang ? `/${lang}/success` : `/success`;
-        router.push(`${successUrl}?${params.toString()}`);
+        router.push(`/success?${params.toString()}`);
       }, SUCCESS_REDIRECT_DELAY_MS);
 
       return result.booking;
@@ -303,9 +298,7 @@ export function BookingForm({
   };
 
   if (slotAvailable === false) {
-    const backUrl = lang
-      ? `/${lang}/${username}/${eventType.id}`
-      : `/${username}/${eventType.id}`;
+    const backUrl = `/${username}/${eventType.id}`;
 
     return (
       <div className="flex grow flex-col items-center justify-center p-8 text-center">
@@ -417,9 +410,7 @@ export function BookingForm({
     </>
   );
 
-  const backUrl = lang
-    ? `/${lang}/${username}/${eventType.id}`
-    : `/${username}/${eventType.id}`;
+  const backUrl = `/${username}/${eventType.id}`;
 
   return (
     <div

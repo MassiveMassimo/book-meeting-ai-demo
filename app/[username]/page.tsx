@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 import Image from "next/image";
 
-import { getDictionary, Locale } from "@/app/[lang]/dictionaries";
+import { dict } from "@/lib/copy";
 import { EventCard, EventCardSkeleton } from "@/components/EventCard";
 import { ToastListener } from "@/components/ToastListener";
 import { fetchUserAppointments } from "@/lib/api-helpers";
@@ -46,14 +46,11 @@ async function getUserData(
 
 export async function generateMetadata({
   params,
-}: PageProps<"/[lang]/[username]">): Promise<Metadata> {
-  const { username, lang } = await params;
+}: PageProps<"/[username]">): Promise<Metadata> {
+  const { username } = await params;
 
   // Fetch user data for metadata
-  const [{ appointments, profile: apiProfile }, dict] = await Promise.all([
-    getUserData(username),
-    getDictionary(lang as Locale),
-  ]);
+  const { appointments, profile: apiProfile } = await getUserData(username);
 
   const profile: Profile = apiProfile || {
     name: username,
@@ -92,7 +89,7 @@ export async function generateMetadata({
 
   const ogImage = `${siteUrl}/api/og?name=${encodeURIComponent(
     profile.name || username,
-  )}${profileImageAbsolute ? `&avatar=${encodeURIComponent(profileImageAbsolute)}` : ""}&lang=${lang}`;
+  )}${profileImageAbsolute ? `&avatar=${encodeURIComponent(profileImageAbsolute)}` : ""}`;
 
   return {
     title,
@@ -100,7 +97,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${siteUrl}/${lang}/${username}`,
+      url: `${siteUrl}/${username}`,
       siteName: "Meeting.ai",
       images: [
         {
@@ -110,7 +107,7 @@ export async function generateMetadata({
           alt: title,
         },
       ],
-      locale: lang === "en" ? "en_US" : lang,
+      locale: "en_US",
       type: "website",
     },
     twitter: {
@@ -124,13 +121,10 @@ export async function generateMetadata({
 
 export default async function UserPage({
   params,
-}: PageProps<"/[lang]/[username]">) {
-  const { username, lang } = await params;
+}: PageProps<"/[username]">) {
+  const { username } = await params;
 
-  const [{ appointments, profile: apiProfile }, dict] = await Promise.all([
-    getUserData(username),
-    getDictionary(lang as Locale),
-  ]);
+  const { appointments, profile: apiProfile } = await getUserData(username);
 
   const eventTypes: EventType[] = appointments.map(mapAppointmentToEventType);
 
@@ -199,7 +193,6 @@ export default async function UserPage({
                     key={event.id}
                     event={event}
                     username={username}
-                    lang={lang}
                     hasMoreThanThree={eventTypes.length > 3}
                     isInLastRow={isInLastRow}
                     dict={dict}

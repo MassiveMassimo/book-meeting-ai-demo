@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { EventType, Profile } from "@/lib/types/api";
 
 import { useRouter } from "next/navigation";
@@ -13,7 +13,6 @@ interface BookingInterfaceProps {
   profile: Profile;
   meetingPlatform: string;
   hostTimezone?: string;
-  lang?: string;
   dict: Dictionary;
 }
 
@@ -23,15 +22,12 @@ export function BookingInterface({
   profile,
   meetingPlatform,
   hostTimezone,
-  lang = "en",
   dict,
 }: BookingInterfaceProps) {
   const router = useRouter();
 
   const handleConfirm = (startTimeISO: string, timezone: string) => {
-    const baseUrl = lang
-      ? `/${lang}/${username}/${eventType.id}/book`
-      : `/${username}/${eventType.id}/book`;
+    const baseUrl = `/${username}/${eventType.id}/book`;
 
     router.push(
       `${baseUrl}?start=${encodeURIComponent(
@@ -49,7 +45,6 @@ export function BookingInterface({
       hostTimezone={hostTimezone}
       onConfirm={handleConfirm}
       dict={dict}
-      lang={lang}
     />
   );
 }

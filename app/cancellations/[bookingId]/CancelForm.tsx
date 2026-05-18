@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { BookingDetails, Profile } from "@/lib/types/api";
 
 import { FormEvent, useState } from "react";
@@ -29,7 +29,6 @@ interface CancelFormProps {
   bookingId: string;
   booking: BookingDetails;
   profile: Profile;
-  lang?: string;
   dict: Dictionary;
 }
 
@@ -37,7 +36,6 @@ export function CancelForm({
   bookingId,
   booking,
   profile,
-  lang = "en",
   dict,
 }: CancelFormProps) {
   const router = useRouter();
@@ -48,7 +46,7 @@ export function CancelForm({
   const guestTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const startDate = parseISO(booking.start_time);
-  const formattedDate = new Intl.DateTimeFormat(lang, {
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -107,8 +105,7 @@ export function CancelForm({
         }
 
         setTimeout(() => {
-          const successUrl = lang ? `/${lang}/success` : `/success`;
-          router.push(`${successUrl}?${params.toString()}`);
+          router.push(`/success?${params.toString()}`);
         }, 1500);
         return dict.cancel.toast_success;
       },

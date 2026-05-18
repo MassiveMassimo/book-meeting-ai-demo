@@ -1,4 +1,4 @@
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { AvailableSlot } from "@/lib/types/api";
 
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -40,7 +40,6 @@ interface TimeSlotsProps {
   /** Label for the confirm button (default: "Book") */
   confirmLabel?: string;
   dict: Dictionary["slot_picker"];
-  lang?: string;
 }
 
 // Convert 24-hour time to 12-hour format with AM/PM
@@ -73,7 +72,6 @@ export function TimeSlots({
   inDrawer = false,
   confirmLabel,
   dict,
-  lang = "en",
 }: TimeSlotsProps) {
   const [isConfirming, setIsConfirming] = useState(false);
   const [localUse24Hour, setLocalUse24Hour] = useState(false);
@@ -166,7 +164,7 @@ export function TimeSlots({
   const slotsContent = (
     <div className="flex flex-col gap-4 pr-2">
       {groups.map(([dateKey, groupSlots]) => {
-        const groupDateLabel = new Intl.DateTimeFormat(lang, {
+        const groupDateLabel = new Intl.DateTimeFormat("en-US", {
           weekday: "short",
           month: "short",
           day: "numeric",
@@ -330,20 +328,20 @@ export function TimeSlots({
                 {groups.length > 1 ? (
                   <h3 className="shrink-0 space-x-0.5 text-base font-medium">
                     <span className="text-foreground font-semibold">
-                      {new Intl.DateTimeFormat(lang, {
+                      {new Intl.DateTimeFormat("en-US", {
                         weekday: "short",
                         timeZone: displayTimezone,
                       }).format(new Date(groups[0][1][0].start))}
                     </span>{" "}
                     <span className="text-foreground/40">
-                      {new Intl.DateTimeFormat(lang, {
+                      {new Intl.DateTimeFormat("en-US", {
                         day: "numeric",
                         timeZone: displayTimezone,
                       }).format(new Date(groups[0][1][0].start))}
                     </span>
                     <span className="text-foreground/40 px-1">-</span>
                     <span className="text-foreground font-semibold">
-                      {new Intl.DateTimeFormat(lang, {
+                      {new Intl.DateTimeFormat("en-US", {
                         weekday: "short",
                         timeZone: displayTimezone,
                       }).format(
@@ -351,7 +349,7 @@ export function TimeSlots({
                       )}
                     </span>{" "}
                     <span className="text-foreground/40">
-                      {new Intl.DateTimeFormat(lang, {
+                      {new Intl.DateTimeFormat("en-US", {
                         day: "numeric",
                         timeZone: displayTimezone,
                       }).format(
@@ -362,7 +360,7 @@ export function TimeSlots({
                 ) : (
                   <h3 className="shrink-0 space-x-0.5 text-base font-medium">
                     <span className="text-foreground font-semibold">
-                      {new Intl.DateTimeFormat(lang, {
+                      {new Intl.DateTimeFormat("en-US", {
                         weekday: "short",
                         timeZone: displayTimezone,
                       }).format(
@@ -372,7 +370,7 @@ export function TimeSlots({
                       )}
                     </span>{" "}
                     <span className="text-foreground/40">
-                      {new Intl.DateTimeFormat(lang, {
+                      {new Intl.DateTimeFormat("en-US", {
                         day: "numeric",
                         timeZone: displayTimezone,
                       }).format(

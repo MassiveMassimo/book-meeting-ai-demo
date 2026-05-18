@@ -7,9 +7,9 @@ This repo replaces every API call with local mock data. There is no database, no
 ## Demo user
 
 - Username: `imo`
-- Profile: `/en/imo`
+- Profile: `/imo`
 - Sample events: `quick-1-on-1` (30 min), `intro-chat` (15 min), `deep-dive` (60 min)
-- Try: <http://localhost:3000/en/imo/quick-1-on-1>
+- Try: <http://localhost:3000/imo/quick-1-on-1>
 
 Any other username returns the "not found" state.
 
@@ -34,7 +34,7 @@ pnpm install
 pnpm dev
 ```
 
-Open <http://localhost:3000>. The root path redirects to your detected locale (defaults to `/en`).
+Open <http://localhost:3000>. The root path redirects to your detected locale ().
 
 ## Editing the demo data
 

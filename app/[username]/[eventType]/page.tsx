@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 import { redirect } from "next/navigation";
 
-import { getDictionary, Locale } from "@/app/[lang]/dictionaries";
+import { dict } from "@/lib/copy";
 import { BookingInterface } from "@/components/BookingInterface";
 import {
   fetchSingleAppointment,
@@ -39,13 +39,12 @@ async function getUserProfile(username: string): Promise<Profile | null> {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/[lang]/[username]/[eventType]">): Promise<Metadata> {
-  const { username, eventType: eventSlug, lang } = await params;
+}: PageProps<"/[username]/[eventType]">): Promise<Metadata> {
+  const { username, eventType: eventSlug } = await params;
 
-  const [eventDetails, profile, dict] = await Promise.all([
+  const [eventDetails, profile] = await Promise.all([
     getEventDetails(username, eventSlug),
     getUserProfile(username),
-    getDictionary(lang as Locale),
   ]);
 
   if (!eventDetails) {
@@ -67,7 +66,7 @@ export async function generateMetadata({
 
   const ogImage = `${siteUrl}/api/og?name=${encodeURIComponent(
     host.name,
-  )}${profileImageAbsolute ? `&avatar=${encodeURIComponent(profileImageAbsolute)}` : ""}&title=${encodeURIComponent(eventDetails.title)}&lang=${lang}`;
+  )}${profileImageAbsolute ? `&avatar=${encodeURIComponent(profileImageAbsolute)}` : ""}&title=${encodeURIComponent(eventDetails.title)}`;
 
   const durationStr = formatDuration(
     eventDetails.duration_minutes,
@@ -88,7 +87,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${siteUrl}/${lang}/${username}/${eventSlug}`,
+      url: `${siteUrl}/${username}/${eventSlug}`,
       siteName: "Meeting.ai",
       images: [
         {
@@ -98,7 +97,7 @@ export async function generateMetadata({
           alt: title,
         },
       ],
-      locale: lang === "en" ? "en_US" : lang,
+      locale: "en_US",
       type: "website",
     },
     twitter: {
@@ -132,16 +131,15 @@ async function getEventDetails(
 
 export default async function EventTypePage({
   params,
-}: PageProps<"/[lang]/[username]/[eventType]">) {
-  const { username, eventType: eventSlug, lang } = await params;
-  const [eventDetails, profile, dict] = await Promise.all([
+}: PageProps<"/[username]/[eventType]">) {
+  const { username, eventType: eventSlug } = await params;
+  const [eventDetails, profile] = await Promise.all([
     getEventDetails(username, eventSlug),
     getUserProfile(username),
-    getDictionary(lang as Locale),
   ]);
 
   if (!eventDetails) {
-    redirect(`/${lang}/${username}?error=event_not_found`);
+    redirect(`/${username}?error=event_not_found`);
   }
 
   const eventType = {
@@ -166,7 +164,6 @@ export default async function EventTypePage({
       profile={userProfile}
       meetingPlatform={eventDetails.integration}
       hostTimezone={eventDetails.host_timezone}
-      lang={lang}
       dict={dict}
     />
   );

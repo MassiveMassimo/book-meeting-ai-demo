@@ -4,13 +4,13 @@ import type { Metadata } from "next";
 import { Ban, CalendarX } from "lucide-react";
 import { notFound } from "next/navigation";
 
-import { getDictionary, Locale } from "@/app/[lang]/dictionaries";
+import { dict } from "@/lib/copy";
 import { fetchBookingDetails, fetchSingleAppointment } from "@/lib/api-helpers";
 import { RescheduleInterface } from "./RescheduleInterface";
 
 export async function generateMetadata({
   params,
-}: PageProps<"/[lang]/reschedulings/[bookingId]">): Promise<Metadata> {
+}: PageProps<"/reschedulings/[bookingId]">): Promise<Metadata> {
   const { bookingId } = await params;
   const booking = await fetchBookingDetails(bookingId, {
     next: { revalidate: 60 },
@@ -28,14 +28,11 @@ export async function generateMetadata({
 
 export default async function RescheduleBookingPage({
   params,
-}: PageProps<"/[lang]/reschedulings/[bookingId]">) {
-  const { bookingId, lang } = await params;
-  const [booking, dict] = await Promise.all([
-    fetchBookingDetails(bookingId, {
-      next: { revalidate: 60 },
-    }),
-    getDictionary(lang as Locale),
-  ]);
+}: PageProps<"/reschedulings/[bookingId]">) {
+  const { bookingId } = await params;
+  const booking = await fetchBookingDetails(bookingId, {
+    next: { revalidate: 60 },
+  });
 
   if (!booking) {
     notFound();
@@ -107,7 +104,6 @@ export default async function RescheduleBookingPage({
       profile={profile}
       meetingPlatform={booking.schedule_appointment.integration}
       hostTimezone={hostTimezone}
-      lang={lang}
       dict={dict}
     />
   );

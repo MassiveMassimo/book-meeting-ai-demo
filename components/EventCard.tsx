@@ -1,6 +1,6 @@
 "use client";
 
-import type { Dictionary } from "@/app/[lang]/dictionaries";
+import type { Dictionary } from "@/lib/copy";
 import type { ClockIconHandle } from "@/components/ui/clock";
 import type { EventType } from "@/lib/types/api";
 
@@ -16,7 +16,6 @@ import { cn, formatDuration } from "@/lib/utils";
 interface EventCardProps {
   event: EventType;
   username?: string;
-  lang?: string;
   hasMoreThanThree?: boolean;
   isInLastRow?: boolean;
   dict: Dictionary;
@@ -26,7 +25,6 @@ interface EventCardProps {
 export function EventCard({
   event,
   username,
-  lang,
   hasMoreThanThree = false,
   isInLastRow = false,
   dict,
@@ -34,13 +32,7 @@ export function EventCard({
 }: EventCardProps) {
   const clockRef = useRef<ClockIconHandle>(null);
 
-  const href = username
-    ? lang
-      ? `/${lang}/${username}/${event.id}`
-      : `/${username}/${event.id}`
-    : lang
-      ? `/${lang}/${event.id}`
-      : `/${event.id}`;
+  const href = username ? `/${username}/${event.id}` : `/${event.id}`;
 
   return (
     <Button

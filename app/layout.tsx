@@ -2,16 +2,13 @@ import type { Metadata } from "next";
 
 import { Plus_Jakarta_Sans } from "next/font/google";
 
-import "../globals.css";
-
-import { Suspense } from "react";
+import "./globals.css";
 
 import Image from "next/image";
 
 import { GradientBackground } from "@/components/GradientBackground";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Toaster } from "@/components/ui/sonner";
-import { getDictionary, Locale } from "./dictionaries";
+import { dict } from "@/lib/copy";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -23,12 +20,7 @@ const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
   "https://book-meeting-prototype.netlify.app";
 
-export async function generateMetadata({
-  params,
-}: LayoutProps<"/[lang]">): Promise<Metadata> {
-  const { lang } = await params;
-  const dict = await getDictionary(lang as Locale);
-
+export async function generateMetadata(): Promise<Metadata> {
   const ogTitle = dict.metadata.default_title;
   const ogDescription = dict.metadata.default_description;
 
@@ -53,7 +45,7 @@ export async function generateMetadata({
           alt: `${dict.metadata.default_title} - Meeting.ai`,
         },
       ],
-      locale: lang === "en" ? "en_US" : lang,
+      locale: "en_US",
       type: "website",
     },
     twitter: {
@@ -65,28 +57,9 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams() {
-  return [
-    { lang: "en" },
-    { lang: "id" },
-    { lang: "ms" },
-    { lang: "de" },
-    { lang: "es" },
-    { lang: "fr" },
-    { lang: "pt" },
-    { lang: "ko" },
-    { lang: "ja" },
-  ];
-}
-
-export default async function RootLayout({
-  children,
-  params,
-}: LayoutProps<"/[lang]">) {
-  const { lang } = await params;
-
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${plusJakartaSans.variable} relative flex min-h-screen flex-col antialiased`}
       >
@@ -109,9 +82,6 @@ export default async function RootLayout({
           </div>
         </main>
         <Toaster />
-        <Suspense>
-          <LanguageSwitcher />
-        </Suspense>
       </body>
     </html>
   );
