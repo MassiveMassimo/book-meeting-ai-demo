@@ -8,6 +8,7 @@ import { useState } from "react";
 import { parseISO } from "date-fns";
 import {
   Calendar as CalendarIcon,
+  CalendarPlus,
   Check,
   CheckCheck,
   Copy,
@@ -17,6 +18,7 @@ import {
   Video,
   XCircle,
 } from "lucide-react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -37,6 +39,7 @@ export function SuccessContent({
   const name = searchParams.get("name");
   const timezoneParam = searchParams.get("timezone");
   const hostName = searchParams.get("hostName");
+  const username = searchParams.get("username");
   const integration = searchParams.get("integration");
   const location = searchParams.get("location");
   const action = searchParams.get("action"); // "rescheduled" | "cancelled" | undefined
@@ -195,7 +198,7 @@ export function SuccessContent({
           </div>
 
           {!isCancelled && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-both space-y-4 delay-700 duration-1000">
+            <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-both space-y-3 delay-700 duration-1000">
               <Button
                 onClick={copyToClipboard}
                 variant={copied ? "secondary" : "outline"}
@@ -213,6 +216,18 @@ export function SuccessContent({
                   </>
                 )}
               </Button>
+              {username && (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full gap-2 rounded-xl font-semibold shadow-sm"
+                >
+                  <Link href={`/${lang}/${username}`}>
+                    <CalendarPlus className="size-4" />
+                    Book another meeting
+                  </Link>
+                </Button>
+              )}
             </div>
           )}
         </div>
