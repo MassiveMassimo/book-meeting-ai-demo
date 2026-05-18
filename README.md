@@ -1,6 +1,6 @@
 # book-meeting-ai-demo
 
-A backend-free clone of [book.meeting.ai](https://book.meeting.ai) — a Calendly-style scheduling UI built with Next.js 16, React 19, and Tailwind v4.
+A backend-free clone of [book.meeting.ai](https://book.meeting.ai) — a Calendly-style scheduling UI built with TanStack Start, React 19, and Tailwind v4.
 
 This repo replaces every API call with local mock data. There is no database, no auth, and no external service. Everything renders against an in-memory user profile plus a `localStorage`-backed booking store.
 
