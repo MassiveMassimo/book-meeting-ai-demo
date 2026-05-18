@@ -1,18 +1,15 @@
 import type { EventType, Profile, PublicAppointment } from "@/lib/types/api";
-import type { Metadata } from "next";
 
-import Image from "next/image";
+import { createFileRoute } from "@tanstack/react-router";
+import { queryOptions } from "@tanstack/react-query";
 
 import { dict } from "@/lib/copy";
 import { EventCard, EventCardSkeleton } from "@/components/EventCard";
 import { ToastListener } from "@/components/ToastListener";
+import { Img } from "@/components/ui/img";
 import { fetchUserAppointments } from "@/lib/api-helpers";
 import { mapUserAppointmentsResponse } from "@/lib/api-mappers";
 import { cn } from "@/lib/utils";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://book-meeting-prototype.netlify.app";
 
 function mapAppointmentToEventType(appointment: PublicAppointment): EventType {
   return {
@@ -26,105 +23,75 @@ function mapAppointmentToEventType(appointment: PublicAppointment): EventType {
   };
 }
 
-async function getUserData(
-  username: string,
-): Promise<{ appointments: PublicAppointment[]; profile: Profile | null }> {
-  const data = await fetchUserAppointments(username, {
-    next: { revalidate: 60 },
+const userQuery = (username: string) =>
+  queryOptions({
+    queryKey: ["userAppointments", username],
+    queryFn: async () => {
+      const data = await fetchUserAppointments(username);
+      if (!data?.schedule_appointments || !Array.isArray(data.schedule_appointments)) {
+        return { appointments: [], profile: null };
+      }
+      return mapUserAppointmentsResponse(data);
+    },
+    staleTime: 60_000,
   });
 
-  if (
-    !data ||
-    !data.schedule_appointments ||
-    !Array.isArray(data.schedule_appointments)
-  ) {
-    return { appointments: [], profile: null };
-  }
-
-  return mapUserAppointmentsResponse(data);
-}
-
-export async function generateMetadata({
-  params,
-}: PageProps<"/[username]">): Promise<Metadata> {
-  const { username } = await params;
-
-  // Fetch user data for metadata
-  const { appointments, profile: apiProfile } = await getUserData(username);
-
-  const profile: Profile = apiProfile || {
-    name: username,
-    image: "",
-  };
-
-  // Build dynamic title
+function buildUserMeta(
+  username: string,
+  data: { appointments: any[]; profile: any },
+) {
+  const profile = data.profile || { name: username, image: "" };
+  const siteUrl =
+    import.meta.env.VITE_SITE_URL || "https://book-meeting-prototype.netlify.app";
   const title = dict.metadata.user_title.replace("{name}", profile.name);
-  let description = dict.metadata.user_description_empty.replace(
-    "{name}",
-    profile.name,
-  );
-
-  if (appointments.length > 0) {
-    if (appointments.length === 1) {
-      description = dict.metadata.user_description_one.replace(
-        "{name}",
-        profile.name,
-      );
-    } else {
-      description = dict.metadata.user_description
-        .replace("{name}", profile.name)
-        .replace("{count}", String(appointments.length));
-    }
+  let description = dict.metadata.user_description_empty.replace("{name}", profile.name);
+  if (data.appointments.length === 1) {
+    description = dict.metadata.user_description_one.replace("{name}", profile.name);
+  } else if (data.appointments.length > 1) {
+    description = dict.metadata.user_description
+      .replace("{name}", profile.name)
+      .replace("{count}", String(data.appointments.length));
   }
-
-  // Build dynamic OG image using API route; ensure absolute URLs
   const profileImageAbsolute =
     profile.image &&
-    (profile.image.startsWith("http://") ||
-      profile.image.startsWith("https://"))
+    (profile.image.startsWith("http://") || profile.image.startsWith("https://"))
       ? profile.image
       : profile.image
         ? `${siteUrl}${profile.image.startsWith("/") ? "" : "/"}${profile.image}`
         : "";
-
-  const ogImage = `${siteUrl}/api/og?name=${encodeURIComponent(
-    profile.name || username,
-  )}${profileImageAbsolute ? `&avatar=${encodeURIComponent(profileImageAbsolute)}` : ""}`;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: `${siteUrl}/${username}`,
-      siteName: "Meeting.ai",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-      locale: "en_US",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
-    },
-  };
+  const ogImage = `${siteUrl}/api/og?name=${encodeURIComponent(profile.name || username)}${profileImageAbsolute ? `&avatar=${encodeURIComponent(profileImageAbsolute)}` : ""}`;
+  return [
+    { title },
+    { name: "description", content: description },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:url", content: `${siteUrl}/${username}` },
+    { property: "og:site_name", content: "Meeting.ai" },
+    { property: "og:image", content: ogImage },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:alt", content: title },
+    { property: "og:locale", content: "en_US" },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: ogImage },
+  ];
 }
 
-export default async function UserPage({
-  params,
-}: PageProps<"/[username]">) {
-  const { username } = await params;
+export const Route = createFileRoute("/$username/")({
+  loader: ({ context, params }) =>
+    context.queryClient.ensureQueryData(userQuery(params.username)),
+  head: ({ loaderData, params }) => ({
+    meta: buildUserMeta(params.username, loaderData ?? { appointments: [], profile: null }),
+  }),
+  component: UserPage,
+});
 
-  const { appointments, profile: apiProfile } = await getUserData(username);
+function UserPage() {
+  const { username } = Route.useParams();
+  const { appointments, profile: apiProfile } = Route.useLoaderData();
 
   const eventTypes: EventType[] = appointments.map(mapAppointmentToEventType);
 
@@ -162,11 +129,10 @@ export default async function UserPage({
         >
           {profile.image && (
             <div className="relative mb-4 flex size-20 items-center justify-center overflow-hidden rounded-full text-2xl font-bold md:mb-5 md:size-24 md:text-3xl">
-              <Image
+              <Img
                 src={profile.image}
                 alt={profile.name}
-                fill
-                className="object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
           )}
