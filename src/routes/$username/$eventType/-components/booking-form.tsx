@@ -13,12 +13,11 @@ import {
   Globe,
   Video,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { Link, useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Img } from "@/components/ui/img";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -36,6 +35,10 @@ interface BookingFormProps {
   meetingPlatform: string;
   hostTimezone?: string;
   dict: Dictionary;
+  startParam?: string;
+  dateParam?: string;
+  timeParam?: string;
+  timezoneParam?: string;
 }
 
 export function BookingForm({
@@ -45,14 +48,12 @@ export function BookingForm({
   meetingPlatform,
   hostTimezone,
   dict,
+  startParam,
+  dateParam,
+  timeParam,
+  timezoneParam,
 }: BookingFormProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const startParam = searchParams.get("start");
-  const dateParam = searchParams.get("date");
-  const timeParam = searchParams.get("time");
-  const timezoneParam = searchParams.get("timezone");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -103,10 +104,11 @@ export function BookingForm({
   const SUCCESS_REDIRECT_DELAY_MS = 1000;
 
   const redirectToBookingInterface = useCallback(() => {
-    const baseUrl = `/${username}/${eventType.id}`;
-
     setTimeout(() => {
-      router.push(baseUrl);
+      router.navigate({
+        to: "/$username/$eventType",
+        params: { username, eventType: eventType.id } as any,
+      });
     }, REDIRECT_DELAY_MS);
   }, [router, username, eventType.id]);
 
@@ -258,25 +260,24 @@ export function BookingForm({
       }
 
       setTimeout(() => {
-        const params = new URLSearchParams({
-          date: formatInTimeZone(selectedStart, displayTimezone, "yyyy-MM-dd"),
-          time: formatInTimeZone(selectedStart, displayTimezone, "HH:mm"),
-          type: eventType.id,
-          title: eventType.title,
-          name: name,
-          email: email,
-          phone: phone || "",
-          timezone: displayTimezone,
-          bookingId: result.booking.id,
-          hostName: profile.name,
-          username: username,
-          integration: eventType.integration || meetingPlatform || "in_person",
+        router.navigate({
+          to: "/success" as any,
+          search: {
+            date: formatInTimeZone(selectedStart, displayTimezone, "yyyy-MM-dd"),
+            time: formatInTimeZone(selectedStart, displayTimezone, "HH:mm"),
+            type: eventType.id,
+            title: eventType.title,
+            name: name,
+            email: email,
+            phone: phone || "",
+            timezone: displayTimezone,
+            bookingId: result.booking.id,
+            hostName: profile.name,
+            username: username,
+            integration: eventType.integration || meetingPlatform || "in_person",
+            ...(eventType.location ? { location: eventType.location } : {}),
+          } as any,
         });
-        if (eventType.location) {
-          params.set("location", eventType.location);
-        }
-
-        router.push(`/success?${params.toString()}`);
       }, SUCCESS_REDIRECT_DELAY_MS);
 
       return result.booking;
@@ -298,7 +299,7 @@ export function BookingForm({
   };
 
   if (slotAvailable === false) {
-    const backUrl = `/${username}/${eventType.id}`;
+    const backUrl = `/$username/$eventType` as const;
 
     return (
       <div className="flex grow flex-col items-center justify-center p-8 text-center">
@@ -310,7 +311,12 @@ export function BookingForm({
           {dict.booking_form.slot_not_available_desc}
         </p>
         <Button asChild variant="secondary">
-          <Link href={backUrl}>{dict.booking_form.back}</Link>
+          <Link
+            to="/$username/$eventType"
+            params={{ username, eventType: eventType.id } as any}
+          >
+            {dict.booking_form.back}
+          </Link>
         </Button>
       </div>
     );
@@ -410,8 +416,6 @@ export function BookingForm({
     </>
   );
 
-  const backUrl = `/${username}/${eventType.id}`;
-
   return (
     <div
       className={cn(
@@ -421,17 +425,19 @@ export function BookingForm({
       <div className="bg-background dark:bg-secondary animate-in fade-in slide-in-from-bottom-4 fill-mode-both relative z-10 flex shrink-0 flex-col rounded-xl p-4 shadow-xl shadow-slate-300/30 duration-1000 md:p-6 xl:w-1/4 dark:shadow-none">
         <div className="mb-3 flex items-center gap-3 xl:mb-0 xl:block">
           <Button asChild variant="secondary" size="icon">
-            <Link href={backUrl}>
+            <Link
+              to="/$username/$eventType"
+              params={{ username, eventType: eventType.id } as any}
+            >
               <ArrowLeft className="size-4" />
             </Link>
           </Button>
           <div className="flex items-center gap-2 xl:hidden">
             <div className="bg-muted relative size-5 overflow-hidden rounded-full">
-              <Image
+              <Img
                 src={profile.image}
                 alt={profile.name}
-                fill
-                className="object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
             <span className="text-muted-foreground text-sm font-medium">
@@ -443,11 +449,10 @@ export function BookingForm({
         <div className="flex grow flex-col xl:mt-12">
           <div className="mb-2 hidden items-center gap-2 xl:flex">
             <div className="bg-muted relative size-5 overflow-hidden rounded-full">
-              <Image
+              <Img
                 src={profile.image}
                 alt={profile.name}
-                fill
-                className="object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
             <span className="text-muted-foreground text-sm font-medium">
