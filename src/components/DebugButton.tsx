@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { Bug } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -50,7 +50,7 @@ export function DebugButton() {
     setNoTimeSlots(checked);
     const secure = window.location.protocol === "https:" ? "; secure" : "";
     document.cookie = `debug_no_time_slots=${checked}; path=/; samesite=lax${secure}`;
-    router.refresh();
+    router.invalidate();
   };
 
   const handleEventTypesCountChange = (value: number[]) => {
@@ -58,7 +58,7 @@ export function DebugButton() {
     setEventTypesCount([count]);
     const secure = window.location.protocol === "https:" ? "; secure" : "";
     document.cookie = `debug_event_types_count=${count}; path=/; samesite=lax${secure}`;
-    router.refresh();
+    router.invalidate();
   };
 
   return (

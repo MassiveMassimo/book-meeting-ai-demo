@@ -3,7 +3,7 @@
 import type { Dictionary } from "@/lib/copy";
 import type { EventType, Profile } from "@/lib/types/api";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@tanstack/react-router";
 
 import { SlotPicker } from "@/components/SlotPicker";
 
@@ -27,13 +27,13 @@ export function BookingInterface({
   const router = useRouter();
 
   const handleConfirm = (startTimeISO: string, timezone: string) => {
-    const baseUrl = `/${username}/${eventType.id}/book`;
-
-    router.push(
-      `${baseUrl}?start=${encodeURIComponent(
-        startTimeISO,
-      )}&timezone=${encodeURIComponent(timezone)}`,
-    );
+    // TODO: typed link — route params/search types resolve after Phase B route registration
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (router.navigate as any)({
+      to: "/$username/$eventType/book",
+      params: { username, eventType: eventType.id },
+      search: { start: startTimeISO, timezone },
+    });
   };
 
   return (

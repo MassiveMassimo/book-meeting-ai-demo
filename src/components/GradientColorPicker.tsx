@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { Check } from "lucide-react";
-import Image from "next/image";
+import { Img } from "@/components/ui/img";
 
 import {
   BACKGROUND_IMAGES,
@@ -75,12 +75,10 @@ function BackgroundImageSwatch({
       title={image.name}
     >
       {imageId === "hills" ? (
-        <Image
+        <Img
           src={image.thumbnail}
           alt={image.name}
-          fill
-          className="object-cover object-bottom"
-          sizes="150px"
+          className="absolute inset-0 h-full w-full object-cover object-bottom"
         />
       ) : (
         <div

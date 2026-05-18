@@ -1,39 +1,34 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearch } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 function ToastListenerContent() {
-  const searchParams = useSearchParams();
+  const { error } = useSearch({ strict: false }) as { error?: string };
   const router = useRouter();
 
   useEffect(() => {
-    const error = searchParams.get("error");
     if (error === "event_not_found") {
       toast.error("Event type not found");
       // Remove the query param so the toast doesn't show again on refresh
-      const newSearchParams = new URLSearchParams(searchParams.toString());
-      newSearchParams.delete("error");
-      const newPath =
-        window.location.pathname +
-        (newSearchParams.toString() ? `?${newSearchParams.toString()}` : "");
-      router.replace(newPath);
+      // TODO: typed link — search reducer types resolve after Phase B route registration
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (router.navigate as any)({
+        search: (prev: Record<string, unknown>) => {
+          const next = { ...prev };
+          delete next["error"];
+          return next;
+        },
+        replace: true,
+      });
     }
-  }, [searchParams, router]);
+  }, [error, router]);
 
   return null;
 }
 
 export function ToastListener() {
-  return (
-    <Suspense fallback={null}>
-      <ToastListenerContent />
-    </Suspense>
-  );
+  return <ToastListenerContent />;
 }
-
-
-
-

@@ -7,7 +7,7 @@ import type { EventType } from "@/lib/types/api";
 import { useRef } from "react";
 
 import { ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { Link, type LinkProps } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import { ClockIcon } from "@/components/ui/clock";
@@ -32,8 +32,6 @@ export function EventCard({
 }: EventCardProps) {
   const clockRef = useRef<ClockIconHandle>(null);
 
-  const href = username ? `/${username}/${event.id}` : `/${event.id}`;
-
   return (
     <Button
       asChild
@@ -47,8 +45,12 @@ export function EventCard({
       onMouseEnter={() => clockRef.current?.startAnimation()}
       onMouseLeave={() => clockRef.current?.stopAnimation()}
     >
+      {/* TODO: typed link — when username is absent /${event.id} has no typed route; username ?? "" is a stopgap. Params/to resolve after Phase B route registration. */}
       <Link
-        href={href}
+        {...({
+          to: "/$username/$eventType",
+          params: { username: username ?? "", eventType: event.id },
+        } as unknown as LinkProps)}
         className="relative flex h-full w-full flex-col justify-between"
       >
         <div

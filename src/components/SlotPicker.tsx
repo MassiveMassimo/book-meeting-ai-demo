@@ -20,7 +20,7 @@ import {
   MapPin,
   Video,
 } from "lucide-react";
-import Image from "next/image";
+import { Img } from "@/components/ui/img";
 
 import { Calendar } from "@/components/Calendar";
 import { TimeSlots } from "@/components/TimeSlots";
@@ -236,11 +236,10 @@ export function SlotPicker({
           {renderHeader ? renderHeader() : null}
           <div className="flex items-center gap-2 xl:hidden">
             <div className="bg-muted relative size-5 overflow-hidden rounded-full">
-              <Image
+              <Img
                 src={profile.image}
                 alt={profile.name}
-                fill
-                className="object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
             <span className="text-muted-foreground text-sm font-medium">
@@ -252,11 +251,10 @@ export function SlotPicker({
         <div className="flex grow flex-col xl:mt-12">
           <div className="mb-2 hidden items-center gap-2 xl:flex">
             <div className="bg-muted relative size-5 overflow-hidden rounded-full">
-              <Image
+              <Img
                 src={profile.image}
                 alt={profile.name}
-                fill
-                className="object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
             <span className="text-muted-foreground text-sm font-medium">
