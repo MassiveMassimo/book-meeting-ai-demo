@@ -1,5 +1,3 @@
-"use client";
-
 import type { Dictionary } from "@/lib/copy";
 import type { EventType } from "@/lib/types/api";
 
@@ -18,28 +16,31 @@ import {
   Video,
   XCircle,
 } from "lucide-react";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { Link } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import { formatPlatformName } from "@/lib/utils/platform";
+import { Route as SuccessRoute } from "../success";
 
 export function SuccessContent({ dict }: { dict: Dictionary }) {
-  const searchParams = useSearchParams();
-  const dateParam = searchParams.get("date");
-  const timeParam = searchParams.get("time");
-  const eventTypeId = searchParams.get("type");
-  const eventTitle = searchParams.get("title");
-  const name = searchParams.get("name");
-  const timezoneParam = searchParams.get("timezone");
-  const hostName = searchParams.get("hostName");
-  const username = searchParams.get("username");
-  const integration = searchParams.get("integration");
-  const location = searchParams.get("location");
-  const action = searchParams.get("action"); // "rescheduled" | "cancelled" | undefined
+  const {
+    date: dateParam,
+    time: timeParam,
+    type: eventTypeId,
+    title: eventTitle,
+    name,
+    timezone: timezoneParam,
+    hostName,
+    username,
+    integration,
+    location,
+    action,
+    bookingId,
+  } = SuccessRoute.useSearch();
+
   const [copied, setCopied] = useState(false);
 
-  // Get event type details from URL params or booking response
+  // Build a minimal EventType from URL params.
   const eventType: EventType | null = eventTypeId
     ? {
         id: eventTypeId,
@@ -210,13 +211,47 @@ export function SuccessContent({ dict }: { dict: Dictionary }) {
                   </>
                 )}
               </Button>
-              {username && (
+
+              {bookingId && (
                 <Button
                   asChild
                   variant="outline"
                   className="w-full gap-2 rounded-xl font-semibold shadow-sm"
                 >
-                  <Link href={`/${username}`}>
+                  {/* TODO: convert to <Link> once reschedulings route is ported */}
+                  <a href={`/reschedulings/${bookingId}`}>Reschedule</a>
+                </Button>
+              )}
+
+              {bookingId && (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full gap-2 rounded-xl font-semibold shadow-sm"
+                >
+                  {/* TODO: convert to <Link> once cancellations route is ported */}
+                  <a href={`/cancellations/${bookingId}`}>Cancel</a>
+                </Button>
+              )}
+
+              {username ? (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full gap-2 rounded-xl font-semibold shadow-sm"
+                >
+                  <Link to="/$username" params={{ username }}>
+                    <CalendarPlus className="size-4" />
+                    Book another meeting
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full gap-2 rounded-xl font-semibold shadow-sm"
+                >
+                  <Link to="/">
                     <CalendarPlus className="size-4" />
                     Book another meeting
                   </Link>
