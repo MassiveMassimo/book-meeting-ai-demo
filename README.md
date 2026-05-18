@@ -34,7 +34,7 @@ pnpm install
 pnpm dev
 ```
 
-Open <http://localhost:3000>. The root path redirects to your detected locale ().
+Open <http://localhost:3000>.
 
 ## Editing the demo data
 
