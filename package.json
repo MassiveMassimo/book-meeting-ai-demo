@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "node dist/nitro/server/index.mjs",
+    "start": "node .output/server/index.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
     "fmt": "oxfmt"
