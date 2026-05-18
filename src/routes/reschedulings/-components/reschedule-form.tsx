@@ -1,5 +1,3 @@
-"use client";
-
 import type { Dictionary } from "@/lib/copy";
 import type { BookingDetails, EventType, Profile } from "@/lib/types/api";
 
@@ -13,7 +11,7 @@ import {
   Globe,
   Video,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -123,7 +121,10 @@ export function RescheduleForm({
         }
 
         setTimeout(() => {
-          router.push(`/success?${params.toString()}`);
+          router.navigate({
+            to: "/success" as any,
+            search: Object.fromEntries(params.entries()) as any,
+          });
         }, 1500);
         return dict.reschedule.toast_success;
       },

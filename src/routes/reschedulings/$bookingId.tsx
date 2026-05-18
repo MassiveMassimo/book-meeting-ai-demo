@@ -1,44 +1,56 @@
-import type { Profile } from "@/lib/types/api";
-import type { Metadata } from "next";
-
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import { queryOptions } from "@tanstack/react-query";
 import { Ban, CalendarX } from "lucide-react";
-import { notFound } from "next/navigation";
 
-import { dict } from "@/lib/copy";
 import { fetchBookingDetails, fetchSingleAppointment } from "@/lib/api-helpers";
-import { RescheduleInterface } from "./RescheduleInterface";
+import { dict } from "@/lib/copy";
+import type { Profile } from "@/lib/types/api";
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/reschedulings/[bookingId]">): Promise<Metadata> {
-  const { bookingId } = await params;
-  const booking = await fetchBookingDetails(bookingId, {
-    next: { revalidate: 60 },
+import { RescheduleInterface } from "./-components/reschedule-interface";
+
+const appointmentQuery = (username: string, slug: string) =>
+  queryOptions({
+    queryKey: ["singleAppointmentRaw", username, slug],
+    queryFn: () => fetchSingleAppointment(username, slug),
+    staleTime: 60_000,
   });
 
+export const Route = createFileRoute("/reschedulings/$bookingId")({
+  loader: async ({ context, params }) => {
+    const booking = await fetchBookingDetails(params.bookingId);
+    if (!booking && !params.bookingId.startsWith("demo_")) throw notFound();
+    if (!booking) return { booking: null, appointment: null };
+    const appointment = await context.queryClient.ensureQueryData(
+      appointmentQuery(booking.username, booking.schedule_appointment.slug),
+    );
+    return { booking, appointment };
+  },
+  head: ({ loaderData }) =>
+    loaderData?.booking
+      ? {
+          meta: [
+            {
+              title: `Reschedule Booking — ${loaderData.booking.schedule_appointment.name}`,
+            },
+            {
+              name: "description",
+              content: `Reschedule your meeting with ${loaderData.booking.host.name}`,
+            },
+          ],
+        }
+      : { meta: [] },
+  component: RescheduleBookingPage,
+});
+
+function RescheduleBookingPage() {
+  const { bookingId } = Route.useParams();
+  const { booking, appointment } = Route.useLoaderData();
+
   if (!booking) {
-    return {};
+    // SSR returned null for a demo_ id — client will hydrate inside RescheduleInterface.
+    return null;
   }
 
-  return {
-    title: `Reschedule Booking — ${booking.schedule_appointment.name}`,
-    description: `Reschedule your meeting with ${booking.host.name}`,
-  };
-}
-
-export default async function RescheduleBookingPage({
-  params,
-}: PageProps<"/reschedulings/[bookingId]">) {
-  const { bookingId } = await params;
-  const booking = await fetchBookingDetails(bookingId, {
-    next: { revalidate: 60 },
-  });
-
-  if (!booking) {
-    notFound();
-  }
-
-  // Check if booking is already cancelled
   if (booking.status === "cancelled") {
     return (
       <div className="mx-auto flex max-w-md grow flex-col items-center justify-center p-8 text-center">
@@ -55,10 +67,8 @@ export default async function RescheduleBookingPage({
     );
   }
 
-  // Check if the event has already started or passed
   const eventStartTime = new Date(booking.start_time);
-  const now = new Date();
-  if (now >= eventStartTime) {
+  if (new Date() >= eventStartTime) {
     return (
       <div className="mx-auto flex max-w-md grow flex-col items-center justify-center p-8 text-center">
         <div className="bg-muted mx-auto mb-6 flex size-16 items-center justify-center rounded-full">
@@ -89,11 +99,6 @@ export default async function RescheduleBookingPage({
     location: booking.schedule_appointment.location,
   };
 
-  const appointment = await fetchSingleAppointment(
-    booking.username,
-    booking.schedule_appointment.slug,
-    { next: { revalidate: 60 } },
-  );
   const hostTimezone = appointment?.schedule_appointment?.host_timezone;
 
   return (

@@ -1,5 +1,3 @@
-"use client";
-
 import type { Dictionary } from "@/lib/copy";
 import type { BookingDetails, EventType, Profile } from "@/lib/types/api";
 
@@ -21,7 +19,7 @@ import {
   RefreshCw,
   Video,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@tanstack/react-router";
 
 import { Calendar } from "@/components/Calendar";
 import { TimeSlots } from "@/components/TimeSlots";
@@ -36,7 +34,8 @@ import {
 } from "@/components/ui/drawer";
 import { useAvailableSlots } from "@/hooks/use-available-slots";
 import { formatPlatformName } from "@/lib/utils/platform";
-import { RescheduleForm } from "./RescheduleForm";
+
+import { RescheduleForm } from "./reschedule-form";
 
 interface RescheduleInterfaceProps {
   bookingId: string;
@@ -164,7 +163,7 @@ export function RescheduleInterface({
     : `${startTimeInTz} to ${endTimeInTz}`;
 
   useEffect(() => {
-    router.refresh();
+    router.invalidate();
   }, [router]);
 
   const availableSlots = useMemo(() => {
