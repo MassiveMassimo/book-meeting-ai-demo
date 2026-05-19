@@ -1,1 +1,0 @@
-import{k as e}from"./index-D5bL16Np.js";var t=e();function n({priority:e,loading:n,decoding:r,...i}){return(0,t.jsx)(`img`,{loading:n??(e?`eager`:`lazy`),decoding:r??`async`,fetchPriority:e?`high`:void 0,...i})}export{n as t};

@@ -1,1 +1,0 @@
-function e(e,t){return t&&t[e.toLowerCase()]?t[e.toLowerCase()]:{gmeet:`Google Meet`,teams:`Microsoft Teams`,zoom:`Zoom`,in_person:`In Person`}[e.toLowerCase()]||e.split(`_`).map(e=>e.charAt(0).toUpperCase()+e.slice(1).toLowerCase()).join(` `)}export{e as t};

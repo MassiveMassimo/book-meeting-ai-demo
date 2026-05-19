@@ -100,3 +100,4 @@ routeTree.gen.ts
 src/routeTree.gen.ts
 .nitro
 .tanstack
+.output
