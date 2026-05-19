@@ -12,7 +12,7 @@ export default defineConfig({
 		devtools(),
 		tailwindcss(),
 		tanstackStart({ router: { tmpDir: "./dist/tmp" } }),
-		nitro(),
+		nitro({ config: { preset: "vercel" } }),
 		viteReact(),
 	],
 })
