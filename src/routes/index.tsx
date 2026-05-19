@@ -1,6 +1,6 @@
 import { Calendar, Globe, Link2 } from "lucide-react";
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 import HeroIllustration from "@/components/HeroIllustration";
 import { Button } from "@/components/ui/button";
@@ -12,8 +12,6 @@ export const Route = createFileRoute("/")({
 });
 
 function IndexPage() {
-  const registerUrl = `https://app.meeting.ai/auth/register`;
-
   return (
     <div
       className={cn("flex grow flex-col overflow-hidden xl:h-full xl:min-h-0")}
@@ -55,7 +53,9 @@ function IndexPage() {
                 "bg-brand text-primary-foreground hover:bg-brand/90 animate-in fade-in slide-in-from-bottom-6 fill-mode-both h-12 rounded-xl px-8 text-base font-semibold shadow-sm transition-shadow delay-300 duration-1000 hover:shadow-md",
               )}
             >
-              <a href={registerUrl}>{dict.landing.cta}</a>
+              <Link to="/$username" params={{ username: "imo" }}>
+                {dict.landing.cta}
+              </Link>
             </Button>
           </div>
         </section>
